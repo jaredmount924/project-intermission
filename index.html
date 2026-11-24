@@ -1,0 +1,1340 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Project Intermission</title><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+ --bg:#f6f7f9;--surface:#ffffff;--surface2:#eef0f3;--ink:#101828;--muted:#475467;--faint:#98a2b3;--line:#e4e7ec;
+ --accent:#1d4ed8;--accent-soft:#e8eefc;--accent-ink:#ffffff;--bear:#c2570c;--base:#3b6fe0;--bull:#0f766e;--offer:#b91c1c;
+ --good:#17803d;--warn:#9a3412;--crit:#991b1b;--amber-bg:#fff4e5;--amber-line:#f7c98b;--red-bg:#fdecec;
+ --side:#101828;--side-ink:#e4e7ec;--side-mute:#98a2b3;--side-line:#344054;--side-hi:#1d2939;
+ --c-public:#17703a;--c-secondary:#2a55b8;--c-claim:#a8400d;--c-mgmt:#8a5a00;--c-verify:#b42318;--c-illus:#5b4bb0;--c-fict:#4f5870;--c-nf:#6b7280;
+ --shadow:0 1px 2px rgba(16,24,40,.05);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+ --bg:#0c111d;--surface:#151b2b;--surface2:#1d2436;--ink:#eef0f4;--muted:#a9b1c3;--faint:#6f7a91;--line:#2a3246;
+ --accent:#7da2ff;--accent-soft:#1b2748;--accent-ink:#0c111d;--bear:#f0a14a;--base:#7f9cf5;--bull:#3fc1b0;--offer:#ff8a8a;
+ --good:#4cc47c;--warn:#f5b878;--crit:#ff9a9a;--amber-bg:#2e2212;--amber-line:#6b4a1c;--red-bg:#3a1717;
+ --side:#080c14;--side-hi:#131a2a;
+ --c-public:#52c981;--c-secondary:#86a6ff;--c-claim:#ff9a62;--c-mgmt:#e6b24a;--c-verify:#ff8d82;--c-illus:#b3a6ff;--c-fict:#aab3cc;--c-nf:#9ca3af;
+ --shadow:none;color-scheme:dark}}
+:root[data-theme="dark"]{
+ --bg:#0c111d;--surface:#151b2b;--surface2:#1d2436;--ink:#eef0f4;--muted:#a9b1c3;--faint:#6f7a91;--line:#2a3246;
+ --accent:#7da2ff;--accent-soft:#1b2748;--accent-ink:#0c111d;--bear:#f0a14a;--base:#7f9cf5;--bull:#3fc1b0;--offer:#ff8a8a;
+ --good:#4cc47c;--warn:#f5b878;--crit:#ff9a9a;--amber-bg:#2e2212;--amber-line:#6b4a1c;--red-bg:#3a1717;
+ --side:#080c14;--side-hi:#131a2a;
+ --c-public:#52c981;--c-secondary:#86a6ff;--c-claim:#ff9a62;--c-mgmt:#e6b24a;--c-verify:#ff8d82;--c-illus:#b3a6ff;--c-fict:#aab3cc;--c-nf:#9ca3af;
+ --shadow:none;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:14px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--side);z-index:50}
+h1,h2,h3,h4{font-family:Inter,system-ui,sans-serif;line-height:1.25;text-wrap:balance;margin:0;font-weight:700}
+h1{font-size:clamp(24px,3.4vw,30px);letter-spacing:-.02em}
+h2{font-size:17px;margin:30px 0 8px}
+h3{font-size:15px;margin:20px 0 8px}
+p{margin:0 0 12px;max-width:74ch}
+a{color:var(--accent)}a:hover{opacity:.85}
+.mono,code{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:.9em}
+.muted{color:var(--muted)}
+.shell{display:flex;flex-wrap:wrap;align-items:stretch;min-height:100vh}
+.side{flex:0 0 252px;max-width:100%;background:var(--side);color:var(--side-ink);padding-block:24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:16px;display:flex;flex-direction:column;gap:20px}
+.side-in{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);display:flex;flex-direction:column;gap:18px;max-height:calc(100vh - 48px - env(safe-area-inset-top,0px));overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:0 6px;font-weight:700;font-size:15px;color:#fff}
+.proj{border:1px solid var(--side-line);border-radius:8px;background:var(--side-hi);padding:8px 12px}
+.proj small{display:block;font-size:11px;color:var(--side-mute);text-transform:uppercase;letter-spacing:.06em}
+.proj b{display:block;font-size:14px;color:#fff;margin-top:1px}
+.proj span{display:block;font-size:12px;color:var(--side-mute)}
+.nav{display:flex;flex-direction:column;gap:1px}
+.nav hr{border:0;border-top:1px solid var(--side-line);margin:8px 0}
+.nav a{display:flex;gap:10px;align-items:baseline;padding:7px 10px;border-radius:7px;color:var(--side-ink);text-decoration:none;font-size:13.5px;white-space:nowrap}
+.nav a i{font:500 11px "IBM Plex Mono",monospace;font-style:normal;color:var(--side-mute);width:18px}
+.nav a:hover{background:var(--side-hi)}
+.nav a[aria-current="page"]{background:#1d4ed8;color:#fff}
+.nav a[aria-current="page"] i{color:#cfdcff}
+.content{flex:1 1 560px;min-width:0;padding:26px max(16px,env(safe-area-inset-right,0px)) 56px 32px}
+.content-in{max-width:1120px}
+main{min-width:0}
+.banner{font-size:12.5px;color:var(--warn);background:var(--amber-bg);border:1px solid var(--amber-line);border-radius:8px;padding:6px 12px;margin-bottom:18px}
+@media (max-width:860px){
+ .side{flex-basis:100%;padding-block:14px 0}
+ .side-in{position:static;max-height:none;gap:12px}
+ .proj{display:none}
+ .nav{flex-direction:row;overflow-x:auto;padding-bottom:10px;margin-right:-16px}
+ .nav hr{display:none}
+ .nav a i{display:none}
+ .content{padding-left:max(16px,env(safe-area-inset-left,0px));padding-top:18px}
+}
+.crumb{font:500 12px "IBM Plex Mono",monospace;color:var(--faint);margin-bottom:8px}
+.srcline{font:12px/1.5 "IBM Plex Mono",monospace;color:var(--muted);margin:8px 0 12px;overflow-wrap:anywhere}
+.lede{font-size:15px;color:var(--muted);max-width:68ch;margin-top:10px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 16px}
+.headline{background:var(--amber-bg);border:1px solid var(--amber-line);color:var(--warn);border-radius:10px;padding:12px 16px;margin:14px 0}
+.headline b{display:block;font-size:15px;margin-bottom:2px}
+.headline.crit{background:var(--red-bg);border-color:var(--crit)}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1100px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.g2,.g3,.g4{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;box-shadow:var(--shadow);min-width:0}
+.card h3{margin-top:0}
+.kpi .k{font:600 11px Inter,sans-serif;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.kpi .v{font:700 clamp(19px,2vw,24px) Inter,sans-serif;letter-spacing:-.02em;margin:4px 0 2px;word-break:break-word}
+.kpi .s{font-size:12.5px;color:var(--muted)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface);margin:8px 0 14px}
+table.tbl{border-collapse:collapse;width:100%;font-size:13px;min-width:520px}
+.tbl th,.tbl td{padding:8px 11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tbl th{font:600 11px Inter,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--surface2)}
+.tbl .n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tr.tot td{font-weight:700;border-top:2px solid var(--line);background:var(--surface2)}
+.tbl tr.sub td{color:var(--muted)}
+.tbl td.hl{background:var(--accent-soft);font-weight:700}
+.tbl td.neg{color:var(--crit)}
+.tbl tr.hid{display:none}
+.stub{display:inline-block;font:500 10.5px "IBM Plex Mono",monospace;padding:2px 9px;color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);-webkit-mask:radial-gradient(circle 3.5px at 0 50%,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 3.5px at 100% 50%,#0000 97%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 3.5px at 0 50%,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 3.5px at 100% 50%,#0000 97%,#000) right/51% 100% no-repeat;white-space:nowrap}
+.v-public{--c:var(--c-public)}.v-secondary{--c:var(--c-secondary)}.v-claim{--c:var(--c-claim)}.v-mgmt{--c:var(--c-mgmt)}.v-verify{--c:var(--c-verify)}.v-illus{--c:var(--c-illus)}.v-fict{--c:var(--c-fict)}.v-nf{--c:var(--c-nf)}
+.prov{font:inherit;color:inherit;background:none;border:0;border-bottom:1.5px dotted var(--accent);padding:0;cursor:pointer;font-variant-numeric:tabular-nums}
+.prov:hover,.prov:focus-visible{background:var(--accent-soft);outline:none}
+.cite a{font:500 10.5px "IBM Plex Mono",monospace;text-decoration:none;color:var(--c-secondary);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:3px;vertical-align:1px}
+#pop{position:fixed;z-index:100;width:min(360px,calc(100vw - 24px));background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 36px rgba(10,14,30,.28);padding:14px 16px}
+#pop h4{font-size:14px;margin-bottom:6px;padding-right:20px}
+#pop .ref{font:11.5px "IBM Plex Mono",monospace;color:var(--muted);word-break:break-all;margin:8px 0}
+#pop .f{font:12px "IBM Plex Mono",monospace;background:var(--surface2);border-radius:6px;padding:6px 8px;margin:6px 0;overflow-x:auto}
+#pop p{font-size:13px;margin:6px 0}
+#pop button.x{position:absolute;right:8px;top:8px;border:0;background:none;color:var(--muted);font-size:18px;cursor:pointer;line-height:1}
+.callout{border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;padding:11px 15px;margin:14px 0;box-shadow:var(--shadow);border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.callout.warn{border-left-color:var(--warn)}.callout.crit{border-left-color:var(--crit)}.callout.good{border-left-color:var(--good)}
+.callout b:first-child{display:block;margin-bottom:2px}
+.pill{display:inline-block;font:600 11px Inter,sans-serif;border-radius:20px;padding:2px 9px}
+.p-high,.p-blocked{background:var(--red-bg);color:var(--crit)}
+.p-med,.p-partial,.p-open,.p-pending{background:var(--amber-bg);color:var(--warn)}
+.p-low,.p-ready,.p-done{background:color-mix(in srgb,var(--good) 16%,transparent);color:var(--good)}
+.p-locked,.p-ns{background:var(--surface2);color:var(--muted)}
+svg.chart{width:100%;min-width:560px;height:auto;display:block}
+.chartbox{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:10px 8px;margin:8px 0 14px}
+svg .gl{stroke:var(--line);stroke-width:1}
+svg .ax{fill:var(--muted);font:11px Inter,sans-serif}
+svg .vl{fill:var(--ink);font:600 11px Inter,sans-serif}
+svg .lab{fill:var(--ink);font:600 13px Inter,sans-serif}
+svg .b-bear{fill:var(--bear)}svg .b-base{fill:var(--base)}svg .b-bull{fill:var(--bull)}svg .b-ink{fill:var(--accent)}
+svg .dim{opacity:.5}
+svg .ff{fill:var(--base);opacity:.38}svg .ffb{fill:var(--accent)}
+svg .offer{stroke:var(--offer);stroke-width:2;stroke-dasharray:6 4}svg .olab{fill:var(--offer);font:700 12px Inter,sans-serif}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;counter-reset:s;margin:12px 0}
+.steps div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13px;counter-increment:s}
+.steps div::before{content:counter(s);font:700 12px "IBM Plex Mono",monospace;color:var(--accent);display:block;margin-bottom:4px}
+.steps b{display:block;font:600 14px Inter,sans-serif;margin-bottom:2px}
+@media (max-width:960px){.steps{grid-template-columns:minmax(0,1fr)}}
+.map{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px}
+@media (max-width:960px){.map{grid-template-columns:minmax(0,1fr)}}
+.map svg{width:100%;height:auto;display:block}
+.rg{cursor:pointer;fill:var(--surface2);stroke:var(--line);stroke-width:1.5;transition:fill .15s}
+.rg:hover{fill:var(--accent-soft)}
+.rg.on{fill:var(--accent-soft);stroke:var(--accent)}
+.rgt{fill:var(--ink);font:600 13px Inter,sans-serif;pointer-events:none}
+.rgs{fill:var(--muted);font:11px Inter,sans-serif;pointer-events:none}
+.dot-abc{fill:var(--offer)}.dot-peer{fill:var(--base)}
+.sl{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;align-items:center;margin:0 0 12px}
+.sl label{font-size:13px}
+.sl output{font:600 12.5px "IBM Plex Mono",monospace;text-align:right;min-width:68px}
+.sl input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--accent);height:28px}
+.dash{display:grid;grid-template-columns:minmax(260px,320px) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:1100px){.dash{grid-template-columns:minmax(0,1fr)}}
+.ctl{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);max-height:calc(100vh - 40px);overflow:auto}
+@media (max-width:1100px){.ctl{position:static;max-height:none}}
+.ctl h4{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 8px}
+.btn{font:600 13px Inter,sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 12px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{border-color:var(--accent)}
+.btn.on,.btn.pri{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:13px;padding:3px 0}
+.chk .ok{color:var(--good);font-weight:700}.chk .bad{color:var(--crit);font-weight:700}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0}
+details summary{cursor:pointer;font:600 14px Inter,sans-serif}
+details[open] summary{margin-bottom:8px}
+.gate{border-left:4px solid var(--amber-line)}
+.gate.done{border-left-color:var(--good)}
+.gate label{display:flex;gap:9px;align-items:flex-start;padding:4px 0;font-size:13.5px;cursor:pointer}
+.gate input{margin-top:3px;accent-color:var(--accent)}
+.note{font-size:12.5px;color:var(--muted)}
+.tag{font:600 11px "IBM Plex Mono",monospace;color:var(--muted)}
+.hide{display:none}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.filters input,.filters select{font:13px Inter,sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 10px;min-width:0;max-width:100%}
+.filters input{flex:1 1 220px}
+
+.tbl td.mono{white-space:nowrap}
+
+.tbl td:last-child:not(.n){min-width:220px}
+</style>
+<div class="shell">
+<aside class="side"><div class="side-in">
+<div class="brand"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#93b4ff" stroke-width="2" aria-hidden="true"><path d="M4 19V5l8 4 8-4v14l-8 4-8-4z"></path></svg><span>Diligence Workspace</span></div>
+<div class="proj"><small>Project</small><b>Project Intermission</b><span>Cinema acquisition &middot; coursework</span></div>
+<nav class="nav" id="nav" aria-label="Modules"></nav>
+</div></aside>
+<div class="content"><div class="content-in"><div class="banner">Fictional scenario for coursework. ABC Cinemas, XYZ Realty, Buyer Co. and the peers are invented. Market data is real and cited.</div><main id="main"></main></div></div>
+</div>
+<div id="pop" hidden role="dialog" aria-label="Provenance"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+/* Project Intermission model engine. All money in whole US dollars. Fictional seller data. */
+(function () {
+  'use strict';
+  var WB = 'MNA_Data_ProjectIntermission_PriceScenarios_v01';
+  var HIST = {
+    2022: { att: 318000, tk: 11.20, pc: 7.60, oth: 280000, one: 0, film: 0.54, cg: 0.21, pay: 1500000, rent: 1150000, util: 470000, ins: 150000, mkt: 110000, ga: 340000, oo: 250000, gap: 150000, da: 395000, intr: 206000 },
+    2023: { att: 362000, tk: 11.75, pc: 8.20, oth: 360000, one: 0, film: 0.535, cg: 0.205, pay: 1680000, rent: 1170000, util: 520000, ins: 170000, mkt: 130000, ga: 350000, oo: 290000, gap: 160000, da: 415000, intr: 231000 },
+    2024: { att: 391000, tk: 12.20, pc: 8.70, oth: 410000, one: 0, film: 0.53, cg: 0.20, pay: 1830000, rent: 1185000, util: 560000, ins: 195000, mkt: 145000, ga: 360000, oo: 320000, gap: 170000, da: 445000, intr: 228000 },
+    2025: { att: 410000, tk: 12.60, pc: 9.10, oth: 553000, one: 120000, film: 0.53, cg: 0.20, pay: 1950000, rent: 1200000, util: 600000, ins: 210000, mkt: 160000, ga: 380000, oo: 340000, gap: 180000, da: 480000, intr: 222550 }
+  };
+  var YEARS = [2022, 2023, 2024, 2025];
+  var OWNER_ADD = 90000, TAX = 0.27, CAPEX_PCT = 0.035, DA0 = 480000;
+  var COST0 = { pay: 1950000, rent: 1380000, util: 600000, ins: 210000, mkt: 160000, ga: 290000, oo: 340000 };
+  var DEBT = [
+    { name: 'Term loan (bank)', bal: 1650000, rate: 0.09, am: 240000 },
+    { name: 'Equipment financing', bal: 520000, rate: 0.10, am: 140000 },
+    { name: 'SBA pandemic loan', bal: 140000, rate: 0.0375, am: 25000 },
+    { name: 'Owner loans (related party)', bal: 210000, rate: 0.08, am: 0 }
+  ];
+  var CASH0 = 430000;
+  var SITES = [
+    { id: 'S1', region: 'Northern NJ', screens: 8, sqft: 32000, landlord: 'XYZ Realty (related party)', rentPaid: 380000, rentMkt: 560000, expiry: 2031 },
+    { id: 'S2', region: 'Lower Westchester', screens: 6, sqft: 24000, landlord: 'Third-party landlord', rentPaid: 520000, rentMkt: 520000, expiry: 2029 },
+    { id: 'S3', region: 'Central NJ', screens: 4, sqft: 15000, landlord: 'Third-party landlord', rentPaid: 300000, rentMkt: 300000, expiry: 2028 }
+  ];
+  var BS = { cash: 430000, ar: 95000, inv: 120000, prepaid: 140000, ppe: 2900000, ap: 410000, apPrior: 290000, accrued: 260000, defrev: 335000 };
+  var NSCREENS = 18, XENON = 11, PROJ_COST = 90000, CATCHUP = XENON * PROJ_COST;
+
+  var CASES = {
+    bear: { name: 'Bear', att26: 0.045, tk26: 0.025, pc26: 0.03, film26: 0.53, cg26: 0.20, att: [-0.01, 0, 0.005], tk: 0.02, pc: 0.02, film: 0.535, cg: 0.2025, wage: 0.035 },
+    base: { name: 'Base', att26: 0.045, tk26: 0.025, pc26: 0.03, film26: 0.53, cg26: 0.20, att: [0.02, 0.015, 0.01], tk: 0.025, pc: 0.025, film: 0.53, cg: 0.20, wage: 0.035 },
+    bull: { name: 'Bull', att26: 0.045, tk26: 0.025, pc26: 0.03, film26: 0.53, cg26: 0.20, att: [0.04, 0.03, 0.02], tk: 0.03, pc: 0.035, film: 0.515, cg: 0.19, wage: 0.035 }
+  };
+  var VDEF = { mult: 5.0, perScreen: 330000, r: 0.14, g: 0.015, catchPct: 0.5, nwc: 120000, w: [1 / 3, 1 / 3, 1 / 3], fees: 0, offer: 2000000, years: 3 };
+
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+
+  function hist(y) {
+    var d = HIST[y];
+    var adm = d.att * d.tk, con = d.att * d.pc, rev = adm + con + d.oth;
+    var film = d.film * adm, cogs = d.cg * con;
+    var opex = d.pay + d.rent + d.util + d.ins + d.mkt + d.ga + d.oo;
+    var gp = rev - film - cogs;
+    var ebitda = gp - opex;
+    var adj = ebitda - d.gap + OWNER_ADD - d.one;
+    return { yr: y, att: d.att, tk: d.tk, pc: d.pc, adm: adm, con: con, oth: d.oth, one: d.one, rev: rev, film: film, cogs: cogs, gp: gp,
+      pay: d.pay, rent: d.rent, util: d.util, ins: d.ins, mkt: d.mkt, ga: d.ga, oo: d.oo, opex: opex, ebitda: ebitda, gap: d.gap, owner: OWNER_ADD,
+      adj: adj, da: d.da, intr: d.intr, recRev: rev - d.one };
+  }
+
+  function forecast(p, n) {
+    n = n || 3;
+    var d = HIST[2025];
+    var att = d.att, tk = d.tk, pc = d.pc, oth = d.oth - d.one;
+    var c = clone(COST0), da = DA0, out = [];
+    var debt = DEBT.map(function (x) { return { bal: x.bal, rate: x.rate, am: x.am }; });
+    var cash = CASH0;
+    for (var i = 0; i <= n; i++) {
+      var gA, gT, gP, fm, cg;
+      if (i === 0) { gA = p.att26; gT = p.tk26; gP = p.pc26; fm = p.film26; cg = p.cg26; }
+      else { gA = p.att[Math.min(i - 1, p.att.length - 1)]; gT = p.tk; gP = p.pc; fm = p.film; cg = p.cg; }
+      att *= 1 + gA; tk *= 1 + gT; pc *= 1 + gP; oth *= 1.03;
+      c.pay *= (1 + p.wage) * (1 + 0.4 * gA); c.rent *= 1.025; c.util *= 1.03; c.ins *= 1.05; c.mkt *= 1.03; c.ga *= 1.03;
+      c.oo *= 1.03 * (1 + 0.5 * gA); da *= 1.03;
+      var adm = att * tk, con = att * pc, rev = adm + con + oth;
+      var film = fm * adm, cogs = cg * con, gp = rev - film - cogs;
+      var opex = c.pay + c.rent + c.util + c.ins + c.mkt + c.ga + c.oo;
+      var ebitda = gp - opex;
+      var intr = 0, prin = 0, bal = 0;
+      debt.forEach(function (x) { intr += x.bal * x.rate; var pr = Math.min(x.am, x.bal); prin += pr; x.bal -= pr; bal += x.bal; });
+      var ebit = ebitda - da, pretax = ebit - intr, tax = Math.max(0, pretax) * TAX, ni = pretax - tax;
+      var capex = CAPEX_PCT * rev;
+      cash += ebitda - tax - capex - intr - prin;
+      var taxU = Math.max(0, ebit) * TAX;
+      out.push({ yr: 2026 + i, gA: gA, att: att, tk: tk, pc: pc, adm: adm, con: con, oth: oth, rev: rev, film: film, cogs: cogs, gp: gp,
+        pay: c.pay, rent: c.rent, util: c.util, ins: c.ins, mkt: c.mkt, ga: c.ga, oo: c.oo, opex: opex, ebitda: ebitda, da: da, ebit: ebit,
+        intr: intr, prin: prin, pretax: pretax, tax: tax, ni: ni, capex: capex, cash: cash, debtEnd: bal, taxU: taxU, fcf: ebitda - taxU - capex });
+    }
+    return out;
+  }
+
+  function netDebt() { var s = 0; DEBT.forEach(function (x) { s += x.bal; }); return s - CASH0; }
+
+  function value(p, v, n) {
+    v = Object.assign({}, VDEF, v || {});
+    n = n || v.years || 3;
+    var rows = forecast(p, n);
+    var ltm = rows[0].ebitda, pv = 0, i;
+    for (i = 1; i <= n; i++) pv += rows[i].fcf / Math.pow(1 + v.r, i);
+    var tv = rows[n].fcf * (1 + v.g) / (v.r - v.g), pvtv = tv / Math.pow(1 + v.r, n);
+    var dcf = pv + pvtv;
+    var evMult = v.mult * ltm, evScr = v.perScreen * NSCREENS;
+    var ws = v.w[0] + v.w[1] + v.w[2]; var w = ws > 0 ? v.w.map(function (x) { return x / ws; }) : [1 / 3, 1 / 3, 1 / 3];
+    var ev = w[0] * dcf + w[1] * evMult + w[2] * evScr;
+    var nd = netDebt(), cu = v.catchPct * CATCHUP, nwc = v.nwc;
+    var ded = nd + cu + nwc;
+    var eq = ev - ded;
+    return { rows: rows, n: n, ltm: ltm, pvFcf: pv, pvTv: pvtv, tvShare: pvtv / dcf, dcf: dcf, evMult: evMult, evScr: evScr, w: w, ev: ev,
+      netDebt: nd, catchup: cu, nwc: nwc, ded: ded, eq: eq, eqDcf: dcf - ded, eqMult: evMult - ded, eqScr: evScr - ded,
+      fees: v.fees * ev, buyerEq: eq + v.fees * ev, offer: v.offer, offerEv: v.offer + nd + cu + nwc,
+      evToLtm: ev / ltm, evToFy25: ev / hist(2025).adj, v: v };
+  }
+
+  var SAVED = {};
+  Object.keys(CASES).forEach(function (k) { SAVED[k] = value(CASES[k], VDEF, 3); });
+
+  function ranges() {
+    var base = SAVED.base, nd = base.ded, f25 = hist(2025).adj;
+    function rg(name, lo, hi, b, note) { return { name: name, lo: lo, hi: hi, base: b, note: note }; }
+    var out = [];
+    out.push(rg('Indicative price', SAVED.bear.eq, SAVED.bull.eq, SAVED.base.eq, 'Equal-weighted average of the three methods, bear to bull case'));
+    out.push(rg('DCF', SAVED.bear.eqDcf, SAVED.bull.eqDcf, SAVED.base.eqDcf, 'FY2027 to FY2029 free cash flow at 14.0%, bear to bull case'));
+    out.push(rg('EV / EBITDA', 4.0 * base.ltm - nd, 6.0 * base.ltm - nd, base.eqMult, '4.0x to 6.0x FY2026E adjusted EBITDA, base 5.0x'));
+    out.push(rg('Per screen', 250000 * NSCREENS - nd, 400000 * NSCREENS - nd, base.eqScr, '$250K to $400K per screen, base $330K'));
+    out.push(rg('Adviser range', 3.0 * f25 - nd, 6.0 * f25 - nd, null, '3.0x to 6.0x FY2025 adjusted EBITDA (published rule of thumb)'));
+    return out;
+  }
+
+  function runChecks() {
+    var c = [], ok = function (name, pass) { c.push({ name: name, pass: !!pass }); };
+    var near = function (a, b) { return Math.abs(a - b) < 0.5; };
+    YEARS.forEach(function (y) {
+      var h = hist(y);
+      ok('FY' + y + ' revenue lines sum to total revenue', near(h.adm + h.con + h.oth, h.rev));
+      ok('FY' + y + ' EBITDA equals gross profit less operating expenses', near(h.gp - h.opex, h.ebitda));
+    });
+    var h25 = hist(2025);
+    ok('FY2025 QoE bridge: reported EBITDA plus adjustments equals adjusted EBITDA', near(h25.ebitda - 180000 + 90000 - 120000, h25.adj));
+    var cs = 0; Object.keys(COST0).forEach(function (k) { cs += COST0[k]; });
+    ok('FY2025 normalized cost base equals reported operating expenses +180,000 rent -90,000 owner pay', near(cs, h25.opex + 180000 - 90000));
+    var debt = 0; DEBT.forEach(function (x) { debt += x.bal; });
+    ok('Debt schedule totals 2,520,000 and net debt equals debt less cash', near(debt, 2520000) && near(netDebt(), debt - CASH0));
+    var assets = BS.cash + BS.ar + BS.inv + BS.prepaid + BS.ppe, liab = BS.ap + BS.accrued + BS.defrev + debt;
+    ok('FY2025 balance sheet: assets equal liabilities plus equity (equity 160,000)', near(assets - liab, 160000));
+    ok('Site screens sum to 18', SITES.reduce(function (a, s) { return a + s.screens; }, 0) === NSCREENS);
+    ok('Related-party rent gap equals market rent less rent paid at Site 1', SITES[0].rentMkt - SITES[0].rentPaid === 180000);
+    ok('Method weights sum to 100%', near(SAVED.base.w[0] + SAVED.base.w[1] + SAVED.base.w[2], 1) || Math.abs(SAVED.base.w[0] + SAVED.base.w[1] + SAVED.base.w[2] - 1) < 1e-9);
+    ['bear', 'base', 'bull'].forEach(function (k) {
+      var r = SAVED[k], ok1 = true, ok2 = true, ok3 = true;
+      r.rows.forEach(function (x) {
+        if (!near(x.adm + x.con + x.oth, x.rev)) ok1 = false;
+        if (!near(x.gp - x.opex, x.ebitda)) ok2 = false;
+        if (x.debtEnd < -0.5 || x.cash < 0) ok3 = false;
+      });
+      ok(r.v && (k[0].toUpperCase() + k.slice(1)) + ' case: revenue lines and EBITDA tie in every forecast year', ok1 && ok2);
+      ok((k[0].toUpperCase() + k.slice(1)) + ' case: debt and cash balances stay non-negative', ok3);
+      ok((k[0].toUpperCase() + k.slice(1)) + ' case: enterprise value less deductions equals equity value', near(r.ev - r.ded, r.eq));
+    });
+    ok('Equity value rises from bear to base to bull', SAVED.bear.eq < SAVED.base.eq && SAVED.base.eq < SAVED.bull.eq);
+    var rg = ranges(), inside = true;
+    rg.forEach(function (x) { if (x.base !== null && (x.base < x.lo - 0.5 || x.base > x.hi + 0.5)) inside = false; });
+    ok('Football field: each base value sits inside its own range', inside);
+    return c;
+  }
+
+  function exportRows(p, v, caseName) {
+    var r = value(p, v, v.years || 3), H = YEARS.map(hist);
+    var A = [];
+    var sheets = {};
+    sheets['Read me'] = [
+      ['Project Intermission: model export'],
+      ['Fictional scenario for coursework. Company, owners and seller figures are invented. Market data is cited on the Sources sheet of the app.'],
+      ['Case exported', caseName],
+      ['Units', 'US dollars, fiscal years ended Dec 31'],
+      ['Workpaper reference', WB],
+      ['Note', 'Values only. Each row on the Valuation sheet states its formula in words.']
+    ];
+    sheets['Assumptions'] = [['Assumption', 'Value']]
+      .concat([
+        ['Attendance growth FY2026E', p.att26], ['Ticket price growth FY2026E', p.tk26], ['Concession per patron growth FY2026E', p.pc26]
+      ])
+      .concat(r.rows.slice(1).map(function (x) { return ['Attendance growth FY' + x.yr, x.gA]; }))
+      .concat([
+        ['Ticket price growth p.a. from FY2027', p.tk], ['Concession per patron growth p.a. from FY2027', p.pc],
+        ['Film rental % of admissions from FY2027', p.film], ['Concession cost % of concession revenue from FY2027', p.cg],
+        ['Wage inflation', p.wage], ['EV / EBITDA multiple on FY2026E adjusted EBITDA', v.mult], ['Value per screen', v.perScreen],
+        ['Discount rate', v.r], ['Terminal growth', v.g], ['Catch-up capex deducted (share of ' + CATCHUP + ')', v.catchPct],
+        ['Working-capital adjustment', v.nwc], ['Weights: DCF / EV-EBITDA / per screen', r.w.map(function (x) { return Math.round(x * 1000) / 10 + '%'; }).join(' / ')],
+        ['Transaction fees (% of EV)', v.fees], ["Client's offer (equity value)", v.offer], ['Cash tax rate', TAX], ['Maintenance capex (% of revenue)', CAPEX_PCT]
+      ]);
+    sheets['History'] = [['Line'].concat(YEARS.map(function (y) { return 'FY' + y; }))]
+      .concat([
+        ['Attendance'].concat(H.map(function (h) { return h.att; })), ['Average ticket price'].concat(H.map(function (h) { return h.tk; })),
+        ['Concession per patron'].concat(H.map(function (h) { return h.pc; })),
+        ['Admissions revenue'].concat(H.map(function (h) { return h.adm; })), ['Concession revenue'].concat(H.map(function (h) { return h.con; })),
+        ['Other revenue'].concat(H.map(function (h) { return h.oth; })), ['Total revenue'].concat(H.map(function (h) { return h.rev; })),
+        ['Film rental'].concat(H.map(function (h) { return h.film; })), ['Concession cost'].concat(H.map(function (h) { return h.cogs; })),
+        ['Gross profit'].concat(H.map(function (h) { return h.gp; })), ['Operating expenses'].concat(H.map(function (h) { return h.opex; })),
+        ['Reported EBITDA'].concat(H.map(function (h) { return h.ebitda; })), ['Related-party rent to market'].concat(H.map(function (h) { return -h.gap; })),
+        ['Owner pay above market (added back)'].concat(H.map(function (h) { return h.owner; })), ['Insurance proceeds (one-time)'].concat(H.map(function (h) { return -h.one; })),
+        ['Adjusted EBITDA'].concat(H.map(function (h) { return h.adj; }))
+      ]);
+    sheets['Forecast'] = [['Line'].concat(r.rows.map(function (x) { return 'FY' + x.yr + 'E'; }))]
+      .concat([
+        ['Attendance'].concat(r.rows.map(function (x) { return x.att; })), ['Average ticket price'].concat(r.rows.map(function (x) { return x.tk; })),
+        ['Concession per patron'].concat(r.rows.map(function (x) { return x.pc; })),
+        ['Admissions revenue'].concat(r.rows.map(function (x) { return x.adm; })), ['Concession revenue'].concat(r.rows.map(function (x) { return x.con; })),
+        ['Other revenue'].concat(r.rows.map(function (x) { return x.oth; })), ['Total revenue'].concat(r.rows.map(function (x) { return x.rev; })),
+        ['Film rental'].concat(r.rows.map(function (x) { return x.film; })), ['Concession cost'].concat(r.rows.map(function (x) { return x.cogs; })),
+        ['Gross profit'].concat(r.rows.map(function (x) { return x.gp; })), ['Operating expenses (normalized)'].concat(r.rows.map(function (x) { return x.opex; })),
+        ['Adjusted EBITDA'].concat(r.rows.map(function (x) { return x.ebitda; })), ['Depreciation and amortization'].concat(r.rows.map(function (x) { return x.da; })),
+        ['Interest'].concat(r.rows.map(function (x) { return x.intr; })), ['Tax at 27%'].concat(r.rows.map(function (x) { return x.tax; })),
+        ['Net income'].concat(r.rows.map(function (x) { return x.ni; })), ['Capex'].concat(r.rows.map(function (x) { return x.capex; })),
+        ['Debt principal repaid'].concat(r.rows.map(function (x) { return x.prin; })), ['Closing cash'].concat(r.rows.map(function (x) { return x.cash; })),
+        ['Debt at year end'].concat(r.rows.map(function (x) { return x.debtEnd; })), ['Unlevered free cash flow'].concat(r.rows.map(function (x) { return x.fcf; }))
+      ]);
+    sheets['Valuation'] = [['Line', 'Value', 'Formula in words']].concat([
+      ['FY2026E adjusted EBITDA', r.ltm, 'Forecast sheet, FY2026E column'],
+      ['DCF enterprise value', r.dcf, 'Present value of FY2027 onward free cash flow plus discounted terminal value'],
+      ['EV / EBITDA enterprise value', r.evMult, 'Multiple x FY2026E adjusted EBITDA'],
+      ['Per-screen enterprise value', r.evScr, 'Value per screen x 18 screens'],
+      ['Weighted enterprise value', r.ev, 'Weighted average of the three methods'],
+      ['Net debt', r.netDebt, 'Debt 2,520,000 less cash 430,000'],
+      ['Catch-up capex deducted', r.catchup, 'Share x 11 projectors x 90,000'],
+      ['Working-capital adjustment', r.nwc, 'Input'],
+      ['Equity value (price)', r.eq, 'Enterprise value less the three deductions'],
+      ['Buyer equity required', r.buyerEq, 'Equity value plus fees'],
+      ["Client's offer", v.offer, 'Input'],
+      ['Our price less client offer', r.eq - v.offer, 'Equity value less offer'],
+      ['EV / FY2025 adjusted EBITDA', r.evToFy25, 'Enterprise value / 915,820'],
+      ['EV / FY2026E adjusted EBITDA', r.evToLtm, 'Enterprise value / FY2026E adjusted EBITDA']
+    ]);
+    sheets['Football field'] = [['Method', 'Low', 'Base', 'High']].concat(ranges().map(function (x) { return [x.name, x.lo, x.base === null ? '' : x.base, x.hi]; }));
+    return sheets;
+  }
+
+  window.IM = { BS: BS, WB: WB, HIST: HIST, YEARS: YEARS, COST0: COST0, DEBT: DEBT, CASH0: CASH0, SITES: SITES, NSCREENS: NSCREENS, XENON: XENON, PROJ_COST: PROJ_COST,
+    CATCHUP: CATCHUP, CASES: CASES, VDEF: VDEF, SAVED: SAVED, TAX: TAX, hist: hist, forecast: forecast, value: value, netDebt: netDebt, ranges: ranges,
+    runChecks: runChecks, exportRows: exportRows, clone: clone, OWNER_ADD: OWNER_ADD };
+})();
+/* Shared helpers, charts, sources, provenance */
+(function () {
+  'use strict';
+  var IM = window.IM;
+  function $f(n) { if (n === null || n === undefined || isNaN(n)) return 'n/a'; var s = Math.round(Math.abs(n)).toLocaleString('en-US'); return n < 0 ? '($' + s + ')' : '$' + s; }
+  function nf(n) { if (n === null || n === undefined || isNaN(n)) return 'n/a'; var s = Math.round(Math.abs(n)).toLocaleString('en-US'); return n < 0 ? '(' + s + ')' : s; }
+  function pc(x, d) { return (x * 100).toFixed(d == null ? 1 : d) + '%'; }
+  function sg(x, d) { return (x >= 0 ? '+' : '−') + Math.abs(x * 100).toFixed(d == null ? 1 : d) + '%'; }
+  function mx(x) { return x.toFixed(1) + 'x'; }
+  function M(n) { return '$' + (n / 1e6).toFixed(2) + 'M'; }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+  var LABELS = {
+    verified_public_record: ['v-public', 'Confirmed in a public record or filing'],
+    secondary_report: ['v-secondary', 'From a news, trade or data source, not checked against the original'],
+    company_claim: ['v-claim', 'The company says so. Never shown as fact'],
+    not_found_in_scoped_search: ['v-nf', 'Searched for and not found in the sources we checked'],
+    management_provided_unreconciled: ['v-mgmt', 'From the seller. Not yet tied to tax returns, bank statements or the ledger'],
+    requires_verification: ['v-verify', 'Needs checking before anyone relies on it'],
+    illustrative_assumption: ['v-illus', 'An analyst assumption, set for discussion'],
+    fictional_scenario: ['v-fict', 'Invented for this coursework scenario']
+  };
+  function stub(k) { var l = LABELS[k] || ['v-illus', k]; return '<span class="stub ' + l[0] + '" title="' + esc(l[1]) + '">' + k + '</span>'; }
+
+  var SRC = [
+    { id: 'S1', t: 'The 2025 box office comeback that wasn’t', p: 'Axios', d: 'Jan 2, 2026', u: 'https://www.axios.com/2026/01/02/domestic-box-office-2025-movie-theaters', used: '2025 domestic box office about $8.6B, down 24% from $11.4B in 2019', l: 'secondary_report' },
+    { id: 'S2', t: '2026 box office could top $28 billion by end of year', p: 'Forbes (Mark Hughes)', d: 'Oct 29, 2026', u: 'https://www.forbes.com/sites/markhughes/2026/10/29/2026-box-office-could-top-28-billion-by-end-of-year/', used: '2026 domestic about $8.3B as of Oct 30, projected to approach $9B', l: 'secondary_report' },
+    { id: 'S3', t: 'Fewer people are going to the movies despite box office boom', p: 'The Star, citing S&P Global Market Intelligence, Placer.ai and EntTelligence', d: 'Aug 11, 2026', u: 'https://www.thestar.com.my/lifestyle/entertainment/2026/08/11/fewer-people-are-going-to-the-movies-despite-box-office-boom', used: 'Tickets sold, attendance versus 2025 and 2019, average adult ticket $13.46, premium formats $18.22, revenue +15% through Aug 2', l: 'secondary_report' },
+    { id: 'S4', t: 'Fourth quarter and full year 2025 earnings release, Exhibit 99.1 (Public Circuit A)', p: 'SEC filing', d: 'Feb 2026', u: '', used: 'U.S. segment: attendance, ticket price, concession per patron, film rental and concession cost ratios, adjusted EBITDA, capex. Ratios are derived from reported figures', l: 'verified_public_record' },
+    { id: 'S5', t: 'Public Circuit A statistics page', p: 'stockanalysis.com', d: 'Data as of Oct 27, 2026', u: '', used: 'Enterprise value about $6.93B, EV/EBITDA about 10.5x. The EBITDA basis is not verified', l: 'secondary_report' },
+    { id: 'S6', t: 'Studio guarantees five weekends of theatrical exclusivity, seven from 2027', p: 'Boxoffice Pro', d: 'Undated page, 2026 releases', u: 'https://www.boxofficepro.com/universal-guarantees-minimum-five-weekends-of-theatrical-exclusivity-seven-weekends-starting-in-2027/', used: 'Window commitments by major studios', l: 'secondary_report' },
+    { id: 'S7', t: 'Why Disney can demand 65% of box office for The Last Jedi', p: 'Celluloid Junkie (citing the Wall Street Journal)', d: '2017', u: 'https://celluloidjunkie.com/?p=36999', used: 'Typical rental 50% to 60%, tentpole terms of 65% with a four-week minimum. Dated', l: 'secondary_report' },
+    { id: 'S8', t: 'One of NJ’s largest movie theater chains to shutter locations', p: 'Patch', d: 'Feb 26, 2026', u: 'https://patch.com/new-jersey/across-nj/one-nj-s-largest-movie-theater-chains-shutter-locations', used: 'Public Circuit B: about 850 locations, 213 closed in five years, about 85 leases up in 2026', l: 'secondary_report' },
+    { id: 'S9', t: 'Some NJ movie theaters close, others persevere', p: 'NJArts.net', d: 'Feb 26, 2024', u: 'https://www.njarts.net/110506', used: 'Closures in Ridgewood, Millburn and Maplewood, and operators that kept going', l: 'secondary_report' },
+    { id: 'S10', t: 'New Jersey minimum wage 2027 announcement', p: 'NJ Department of Labor', d: 'Sep 29, 2026', u: 'https://www.nj.gov/labor/lwdhome/press/2026/20260929_min_wage.shtml', used: '$16.48 from Jan 1, 2027', l: 'verified_public_record' },
+    { id: 'S11', t: 'New Jersey sets $15.92 minimum wage for 2026', p: 'NJBIZ', d: '2025', u: 'https://njbiz.com/new-jersey-sets-15-92-minimum-wage-for-2026/', used: '$15.92 in 2026', l: 'secondary_report' },
+    { id: 'S12', t: 'What the 2026 minimum wage hike means for Westchester', p: 'News 12 Westchester', d: '2026', u: 'https://westchester.news12.com/what-the-2026-minimum-wage-hike-means-for-westchester-workers-and-businesses', used: '$17.00 in Westchester, NYC and Long Island from Jan 1, 2026', l: 'secondary_report' },
+    { id: 'S13', t: 'NY, NJ, CT among states raising minimum wage in 2026', p: 'ABC7 New York', d: '2026', u: 'https://abc7ny.com/post/ny-nj-ct-among-states-raising-minimum-wage-2026/18331160/', used: 'Upstate New York $16.00', l: 'secondary_report' },
+    { id: 'S14', t: 'Cinema Investment Report, September 2025', p: 'Cinema United', d: 'Sep 2025', u: 'https://cinemaunited.org/wp-content/uploads/2025/09/Cinema-United-Cinema-Investment-Report-September-2025-1.pdf', used: 'Per-item capital cost ranges and industry reinvestment of more than $1.5B', l: 'secondary_report' },
+    { id: 'S15', t: 'Strength of Theatrical Exhibition, December 2025 update', p: 'Cinema United (citing NRG)', d: 'Mar 2026', u: 'https://cinemaunited.org/wp-content/uploads/2026/03/Strength-of-Theatrical-Exhibition-December-2025-Update.pdf', used: 'Loyalty members and habitual moviegoer share', l: 'secondary_report' },
+    { id: 'S16', t: 'Northern New Jersey retail, Q3 2026', p: 'Matthews', d: 'Q3 2026', u: 'https://www.matthews.com/insights/northern-new-jersey-retail-q3-2026', used: 'Asking rent $27.95 per square foot, vacancy 3.3%', l: 'secondary_report' },
+    { id: 'S17', t: 'Q3 2025 Westchester Retail Leasing', p: 'Business Council of Westchester', d: 'Oct 2025', u: 'https://thebcw.org/wp-content/uploads/2025/10/Q3-2025-Westchester-Retail-Leasing.pdf', used: 'Asking rent $42.38 per square foot, availability 5.69%', l: 'secondary_report' },
+    { id: 'S18', t: 'Movie theatres rules of thumb', p: 'DealStream', d: 'Accessed Nov 2026', u: 'https://dealstream.com/industry-guides/movie-theatres/rules-of-thumb', used: '3x to 6x adjusted EBITDA, $200,000 to $500,000 per screen, 0.3x to 0.6x revenue', l: 'secondary_report' },
+    { id: 'S19', t: 'Valuation guide: movie theaters', p: 'Fulcrum', d: 'Accessed Nov 2026', u: 'https://www.fulcrum.com/valuation-guide-movie-theaters/', used: 'Private transactions 2012 to 2016: median MVIC/EBITDA 9.3x. Dated, larger deals', l: 'secondary_report' }
+  ];
+  function cite() { var a = Array.prototype.slice.call(arguments); return '<span class="cite">' + a.map(function (x) { return '<a href="#sources" data-src="' + x + '">' + x + '</a>'; }).join(' ') + '</span>'; }
+
+  /* ---------- provenance ---------- */
+  var S = IM.SAVED, H25 = IM.hist(2025), WBK = IM.WB;
+  var PROV = {
+    price: { t: 'Indicative price, base case', sheet: 'Price & Scenarios', cell: 'B5', f: '=B36-B22-B23-B24', b: 'Weighted enterprise value less net debt, the deducted share of catch-up capex, and the working-capital adjustment. An indicative price, not a valuation opinion.', l: 'illustrative_assumption', v: function () { return $f(S.base.eq); } },
+    ev: { t: 'Enterprise value, base case', sheet: 'Price & Scenarios', cell: 'B36', f: '=B19*B30+B20*B31+B21*B32', b: 'Weights times the DCF, EV/EBITDA and per-screen values. Equal weights by default.', l: 'illustrative_assumption', v: function () { return $f(S.base.ev); } },
+    bull: { t: 'Equity value, bull case', sheet: 'Price & Scenarios', cell: 'C5', f: '=C36-C22-C23-C24', b: 'Bull case: buyer synergies in film booking and purchasing, faster attendance growth.', l: 'illustrative_assumption', v: function () { return $f(S.bull.eq); } },
+    bear: { t: 'Equity value, bear case', sheet: 'Price & Scenarios', cell: 'D5', f: '=D36-D22-D23-D24', b: 'Bear case: flat to falling attendance, slower pricing and higher film rental.', l: 'illustrative_assumption', v: function () { return $f(S.bear.eq); } },
+    dcf: { t: 'DCF enterprise value, base case', sheet: 'DCF', cell: 'B20', f: '=SUM(PV of FCF FY2027..FY2029)+TV/(1+r)^3', b: 'Free cash flow is EBITDA less tax on EBIT less capex of 3.5% of revenue. Discounted at 14.0%. Terminal growth 1.5%.', l: 'illustrative_assumption', v: function () { return $f(S.base.dcf); } },
+    evm: { t: 'EV/EBITDA enterprise value, base case', sheet: 'Price & Scenarios', cell: 'B31', f: '=B16*B8', b: '5.0x times FY2026E adjusted EBITDA. The multiple sits inside the 3x to 6x published rule of thumb.', l: 'illustrative_assumption', v: function () { return $f(S.base.evMult); } },
+    scr: { t: 'Per-screen enterprise value', sheet: 'Price & Scenarios', cell: 'B32', f: '=B17*B9', b: '$330,000 per screen times 18 screens. Published range is $200,000 to $500,000 per screen.', l: 'illustrative_assumption', v: function () { return $f(S.base.evScr); } },
+    e26: { t: 'FY2026E adjusted EBITDA', sheet: 'Forecast Base', cell: 'F15', f: '=F12-F13+F14', b: 'Management 9-month flash, haircut to attendance +4.5%, on the normalized cost base. Not yet reconciled.', l: 'requires_verification', v: function () { return $f(S.base.ltm); } },
+    e25: { t: 'FY2025 adjusted EBITDA', sheet: 'QoE', cell: 'E14', f: '=E8+E9+E10+E11', b: 'Reported EBITDA less related-party rent to market, plus above-market owner pay, less one-time insurance proceeds.', l: 'management_provided_unreconciled', v: function () { return $f(H25.adj); } },
+    r25: { t: 'FY2025 total revenue', sheet: 'Data provided by seller', cell: 'E10', f: '=E6*E7+E6*E8+E9', b: '410,000 admissions at $12.60, 410,000 patrons at $9.10 concession spend, plus $553,000 other revenue.', l: 'management_provided_unreconciled', v: function () { return $f(H25.rev); } },
+    rep25: { t: 'FY2025 reported EBITDA', sheet: 'Data provided by seller', cell: 'E31', f: '=E10-E15-E16-E30', b: 'Revenue less film rental, concession cost and operating expenses as the seller reports them.', l: 'management_provided_unreconciled', v: function () { return $f(H25.ebitda); } },
+    nd: { t: 'Net debt at Dec 31, 2025', sheet: 'Debt', cell: 'E10', f: '=SUM(E6:E9)-E11', b: 'Bank term loan 1,650,000, equipment financing 520,000, SBA loan 140,000 and owner loans 210,000, less cash of 430,000.', l: 'management_provided_unreconciled', v: function () { return $f(IM.netDebt()); } },
+    cu: { t: 'Catch-up capex deducted', sheet: 'Price & Scenarios', cell: 'B23', f: '=B22a*11*90000', b: '11 of 18 screens run lamp-based projectors. $90,000 each is inside the $65,000 to $110,000 published range. Half is deducted by default.', l: 'illustrative_assumption', v: function () { return $f(S.base.catchup); } },
+    nwc: { t: 'Working-capital adjustment', sheet: 'Price & Scenarios', cell: 'B24', f: '=410000-290000', b: 'Film rent payable rose from 290,000 to 410,000. Treated as debt-like until an aging shows normal distributor terms.', l: 'requires_verification', v: function () { return $f(S.base.nwc); } },
+    offer: { t: 'Client’s offer', sheet: 'Price & Scenarios', cell: 'B50', f: 'input', b: 'Buyer Co. indicated about $2.0 million for 100% of the equity, with the existing debt staying in the business.', l: 'fictional_scenario', v: function () { return $f(IM.VDEF.offer); } },
+    m25: { t: 'Enterprise value / FY2025 adjusted EBITDA', sheet: 'Price & Scenarios', cell: 'B38', f: '=B36/QoE!E14', b: 'Cross-check against the last reported year.', l: 'illustrative_assumption', v: function () { return mx(S.base.evToFy25); } },
+    m26: { t: 'Enterprise value / FY2026E adjusted EBITDA', sheet: 'Price & Scenarios', cell: 'B39', f: '=B36/B8', b: 'Cross-check against the current year.', l: 'illustrative_assumption', v: function () { return mx(S.base.evToLtm); } },
+    att: { t: 'FY2025 attendance', sheet: 'Data provided by seller', cell: 'E6', f: 'typed from seller statements', b: 'Tickets sold across 18 screens. Admissions by title requested (Q-01).', l: 'management_provided_unreconciled', v: function () { return IM.HIST[2025].att.toLocaleString('en-US'); } }
+  };
+  function P(k, text) { return '<button type="button" class="prov" data-k="' + k + '">' + (text == null ? PROV[k].v() : text) + '</button>'; }
+
+  /* ---------- tables ---------- */
+  function tbl(head, rows, o) {
+    o = o || {};
+    var h = '<div class="tw"><table class="tbl' + (o.cls ? ' ' + o.cls : '') + '"><thead><tr>' + head.map(function (x, i) { return '<th' + (i > 0 && !o.left && !(o.lc && o.lc.indexOf(i) > -1) ? ' class="n"' : '') + '>' + x + '</th>'; }).join('') + '</tr></thead><tbody>';
+    rows.forEach(function (r) {
+      var cls = r.cls || '', cells = r.c || r;
+      h += '<tr class="' + cls + '">' + cells.map(function (x, i) { return '<td' + (i > 0 && !o.left && !(o.lc && o.lc.indexOf(i) > -1) ? ' class="n"' : '') + '>' + x + '</td>'; }).join('') + '</tr>';
+    });
+    return h + '</tbody></table></div>';
+  }
+
+  /* ---------- charts ---------- */
+  function niceMax(v) { var e = Math.pow(10, Math.floor(Math.log10(v))), f = v / e; var n = f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10; return n * e; }
+  function bars(o) {
+    var W = o.w || 640, Hh = o.h || 250, pl = o.pl || 58, pr = 12, pt = 28, pb = 30, fmt = o.fmt || nf;
+    var all = []; o.series.forEach(function (s) { s.vals.forEach(function (v) { all.push(v); }); });
+    var mxv = niceMax(Math.max.apply(null, all.concat([1]))), mnv = Math.min.apply(null, all.concat([0]));
+    var lo = mnv < 0 ? -niceMax(-mnv) : 0, rng = mxv - lo;
+    var pw = W - pl - pr, ph = Hh - pt - pb, ns = o.series.length, nl = o.labels.length;
+    var y = function (v) { return pt + ph - (v - lo) / rng * ph; };
+    var g = '<svg class="chart" viewBox="0 0 ' + W + ' ' + Hh + '" role="img" aria-label="' + esc(o.label || 'Bar chart') + '">';
+    for (var i = 0; i <= 4; i++) {
+      var tv = lo + rng * i / 4, ty = y(tv);
+      g += '<line class="gl" x1="' + pl + '" x2="' + (W - pr) + '" y1="' + ty + '" y2="' + ty + '"/><text class="ax" x="' + (pl - 6) + '" y="' + (ty + 4) + '" text-anchor="end">' + fmt(tv) + '</text>';
+    }
+    var gw = pw / nl, bw = Math.min(46, gw * 0.72 / ns);
+    o.labels.forEach(function (lab, li) {
+      var gx = pl + gw * li + gw / 2;
+      g += '<text class="ax" x="' + gx + '" y="' + (Hh - 10) + '" text-anchor="middle">' + lab + '</text>';
+      o.series.forEach(function (s, si) {
+        var v = s.vals[li], bx = gx - bw * ns / 2 + bw * si, y0 = y(Math.max(v, 0)), y1 = y(Math.min(v, 0));
+        g += '<rect class="' + (s.cls || 'b-base') + (s.dim && s.dim[li] ? ' dim' : '') + '" x="' + bx + '" y="' + y0 + '" width="' + (bw - 3) + '" height="' + Math.max(1, y1 - y0) + '" rx="2"/>';
+        if (o.vlabels !== false && (ns <= 3 && nl <= 8)) g += '<text class="vl" x="' + (bx + (bw - 3) / 2) + '" y="' + (y0 - 5) + '" text-anchor="middle">' + (o.vfmt || fmt)(v) + '</text>';
+      });
+    });
+    if (ns > 1) {
+      var lx = pl; o.series.forEach(function (s) { g += '<rect class="' + (s.cls || 'b-base') + '" x="' + lx + '" y="6" width="10" height="10" rx="2"/><text class="ax" x="' + (lx + 15) + '" y="15">' + s.name + '</text>'; lx += 22 + s.name.length * 6.6; });
+    }
+    return g + '</svg>';
+  }
+
+  function football(R, offer) {
+    var W = 760, rowH = 50, top = 38, left = 150, x0 = left + 6, x1 = 520, Hh = top + R.length * rowH + 34;
+    var hi = offer; R.forEach(function (r) { if (r.hi > hi) hi = r.hi; });
+    var lo = 0; R.forEach(function (r) { if (r.lo < lo) lo = r.lo; });
+    var mxv = niceMax(hi * 1.02), mnv = lo < 0 ? -niceMax(-lo) : 0;
+    var X = function (v) { return x0 + (v - mnv) / (mxv - mnv) * (x1 - x0); };
+    var g = '<svg class="chart" viewBox="0 0 ' + W + ' ' + Hh + '" role="img" aria-label="Football field: equity value range by method against the client offer">';
+    for (var i = 0; i <= 5; i++) { var tv = mnv + (mxv - mnv) * i / 5, tx = X(tv); g += '<line class="gl" x1="' + tx + '" x2="' + tx + '" y1="' + top + '" y2="' + (Hh - 26) + '"/><text class="ax" x="' + tx + '" y="' + (Hh - 10) + '" text-anchor="middle">' + (tv < 0 ? '(' : '') + '$' + (Math.abs(tv) / 1e6).toFixed(1) + 'M' + (tv < 0 ? ')' : '') + '</text>'; }
+    R.forEach(function (r, i) {
+      var cy = top + i * rowH + rowH / 2, a = X(r.lo), b = X(r.hi);
+      g += '<text class="lab" x="0" y="' + (cy - 2) + '">' + r.name + '</text>';
+      g += '<rect class="ff" x="' + a + '" y="' + (cy - 11) + '" width="' + Math.max(2, b - a) + '" height="22" rx="3"/>';
+      if (r.base !== null && r.base !== undefined) g += '<rect class="ffb" x="' + (X(r.base) - 2) + '" y="' + (cy - 15) + '" width="4" height="30" rx="1"/>';
+      g += '<text class="vl" x="' + (x1 + 12) + '" y="' + (cy - 2) + '">' + $f(r.lo) + ' to ' + $f(r.hi) + '</text>';
+      g += '<text class="ax" x="' + (x1 + 12) + '" y="' + (cy + 13) + '">' + (r.base !== null && r.base !== undefined ? 'base ' + $f(r.base) : 'context only') + '</text>';
+    });
+    var ox = X(offer);
+    g += '<line class="offer" x1="' + ox + '" x2="' + ox + '" y1="' + (top - 8) + '" y2="' + (Hh - 26) + '"/><text class="olab" x="' + ox + '" y="' + (top - 14) + '" text-anchor="middle">Client’s offer ' + $f(offer) + '</text>';
+    return g + '</svg>';
+  }
+
+  window.UI = { $f: $f, nf: nf, pc: pc, sg: sg, mx: mx, M: M, esc: esc, stub: stub, LABELS: LABELS, SRC: SRC, cite: cite, PROV: PROV, P: P, tbl: tbl, bars: bars, football: football, niceMax: niceMax };
+})();
+(function () {
+  'use strict';
+  var IM = window.IM, U = window.UI, S = IM.SAVED, $f = U.$f, P = U.P, st = U.stub, ci = U.cite, tbl = U.tbl;
+  var H25 = IM.hist(2025), H24 = IM.hist(2024);
+  var SC = window.SCREENS = {};
+  function offerLine(eq, offer) {
+    var d = eq - offer;
+    return d > 0 ? $f(d) + ' below' : $f(-d) + ' above';
+  }
+  window.offerSentence = function (R, offer) {
+    var short = { 'Indicative price': 'indicative price', 'DCF': 'DCF', 'EV / EBITDA': 'EV/EBITDA', 'Per screen': 'per-screen', 'Adviser range': 'adviser' };
+    var g = { below: [], inside: [], above: [] };
+    R.forEach(function (r) { g[offer < r.lo ? 'below' : offer > r.hi ? 'above' : 'inside'].push(short[r.name] || r.name); });
+    function list(a) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1]; }
+    var out = [];
+    ['below', 'inside', 'above'].forEach(function (k) { if (g[k].length) out.push(k + ' the ' + list(g[k]) + (g[k].length > 1 ? ' ranges' : ' range')); });
+    return 'The client\u2019s offer is ' + list(out);
+  };
+
+  /* ---------------- HOW ---------------- */
+  SC.how = function () {
+    var legend = Object.keys(U.LABELS).map(function (k) { return '<tr><td>' + st(k) + '</td><td>' + U.LABELS[k][1] + '</td></tr>'; }).join('');
+    return '<div class="eyebrow">Start here</div><h1>How this workspace works</h1>' +
+      '<p class="lede">Buyer Co. wants to buy ABC Cinemas, an 18-screen independent operator with three sites across Northern New Jersey, lower Westchester and Central New Jersey. This workspace turns the seller’s numbers into a price range, shows what would move it, and lists what still has to be checked.</p>' +
+      '<div class="callout"><b>Fictional scenario</b>ABC Cinemas, XYZ Realty, Buyer Co., the nine peers and every person are invented for coursework. The market facts, such as box office, wage laws, rents and published rules of thumb, are real and each one points to a source.</div>' +
+      '<h2>Five steps</h2><div class="steps"><div><b>Take the seller’s numbers</b>Four years of results and a balance sheet, all unreconciled.</div><div><b>Clean the earnings</b>Strip one-offs, put rent and owner pay at market (QoE).</div><div><b>Value three ways</b>Cash flow, earnings multiple, price per screen.</div><div><b>Subtract what the seller owes</b>Debt, overdue equipment catch-up, stretched payables.</div><div><b>Compare to the offer</b>Then list the open questions and gates.</div></div>' +
+      '<h2>Three questions it answers</h2><div class="grid g3"><div class="card"><h3>What is the business worth?</h3><p>On its own, before any buyer savings. See <a href="#valuation">Valuation</a>.</p></div><div class="card"><h3>What would change that?</h3><p>Sliders and four sensitivity tables. See <a href="#dashboard">Dashboard</a>.</p></div><div class="card"><h3>What must we still prove?</h3><p>Thirteen open items and four sign-off gates. See <a href="#financials">Financials and QoE</a>.</p></div></div>' +
+      '<h2>Reading the page</h2><p>Every number with a dotted underline opens its provenance: where it sits in the workpaper, how it is built, and how much to trust it. Small grey source tags such as <span class="cite"><a href="#sources" data-src="S1">S1</a></span> open the source list.</p>' +
+      '<p>Each input carries one of these evidence labels:</p>' + '<div class="tw"><table class="tbl"><thead><tr><th>Label</th><th>Meaning</th></tr></thead><tbody>' + legend + '</tbody></table></div>' +
+      '<div class="callout warn"><b>Limits worth knowing</b>All seller data is management-provided and unreconciled. The FY2026 figures come from a management flash, not closed books. Legal and licensing points are phrased as questions for counsel, not conclusions. Workpaper cell references describe the layout we would keep. The Excel export on the Dashboard is values only and does not follow those cell positions.</div>';
+  };
+
+  /* ---------------- OVERVIEW ---------------- */
+  SC.overview = function () {
+    var R = IM.ranges();
+    var bear = S.bear, base = S.base, bull = S.bull;
+    var chart = U.bars({ labels: ['Bear', 'Base', 'Bull'], series: [{ name: 'Equity value', cls: 'b-base', vals: [bear.eq, base.eq, bull.eq] }], fmt: function (v) { return '$' + (v / 1e6).toFixed(1) + 'M'; }, vfmt: function (v) { return $f(v); }, label: 'Equity value by case', w: 560, h: 240 });
+    return '<div class="eyebrow">Deal overview</div><h1>ABC Cinemas: what a buyer could pay</h1>' +
+      '<p class="lede">An 18-screen operator across Northern NJ, lower Westchester and Central NJ. The base case values the equity at about ' + P('price') + ', inside a range of ' + P('bear') + ' to ' + P('bull') + '. The client’s offer is ' + P('offer') + '.</p>' +
+      '<div class="headline crit"><b>Where the client’s offer sits</b>' + window.offerSentence(R, IM.VDEF.offer) + '. Paying more than the base case means paying for growth or buyer savings the seller has not yet shown.</div>' +
+      '<div class="grid g4"><div class="card kpi"><div class="k">Base equity value</div><div class="v">' + P('price') + '</div><div class="s">Indicative, not an opinion of value</div></div>' +
+      '<div class="card kpi"><div class="k">Enterprise value</div><div class="v">' + P('ev') + '</div><div class="s">' + P('m26') + ' FY2026E, ' + P('m25') + ' FY2025</div></div>' +
+      '<div class="card kpi"><div class="k">FY2025 adjusted EBITDA</div><div class="v">' + P('e25') + '</div><div class="s">Reported ' + P('rep25') + '</div></div>' +
+      '<div class="card kpi"><div class="k">Client’s offer</div><div class="v">' + P('offer') + '</div><div class="s">' + offerLine(S.bear.eq, IM.VDEF.offer) + ' the bear case</div></div></div>' +
+      '<h2>What stands out</h2><div class="grid g2">' +
+      '<div class="card"><h3>Earnings are lower once cleaned</h3><p>Reported EBITDA of ' + $f(H25.ebitda) + ' falls to ' + $f(H25.adj) + ' after moving related-party rent to market (' + $f(H25.gap) + '), adding back above-market owner pay (+' + $f(IM.OWNER_ADD) + ') and removing a one-time insurance receipt (' + $f(H25.one) + '). ' + ci('S4') + '</p></div>' +
+      '<div class="card"><h3>Debt and debt-like items take most of the value</h3><p>Of the ' + $f(base.ev) + ' enterprise value, ' + $f(base.ded) + ' goes to deductions: net debt (' + P('nd') + '), half of the projector catch-up (' + P('cu') + ') and stretched film payables (' + P('nwc') + ').</p></div>' +
+      '<div class="card"><h3>Eleven of 18 screens need new projectors</h3><p>The lamp-based units cost about ' + $f(IM.PROJ_COST) + ' each to replace, ' + $f(IM.CATCHUP) + ' in total. Published projector costs run $65,000 to $110,000. ' + ci('S14') + '</p></div>' +
+      '<div class="card"><h3>The market is smaller than before 2020</h3><p>Domestic box office was about $8.6B in 2025 against $11.4B in 2019. ' + ci('S1') + ' Ticket sales are recovering but remain well under 2019. ' + ci('S3') + '</p></div></div>' +
+      
+      '<h2>Equity value by case</h2><div class="chartbox">' + chart + '</div>' +
+      '<p class="note">Bear: attendance flat to falling, film rental 53.5%. Base: attendance +2.0%, +1.5%, +1.0%. Bull: faster growth plus buyer savings on film booking and purchasing, so it is not a standalone value.</p>' +
+      '<h2>Most urgent open items</h2>' + tbl(['ID', 'Item', 'Why it matters'], [['Q-01', 'Attendance growth versus market', 'The seller’s growth beats the market. Admissions by title will show whether it is real.'], ['Q-03', 'Film rent payable rose to $410K', 'Looks like slower payment to distributors, which flatters cash.'], ['Q-04', '11 projectors near end of life', 'A bill of up to $990K sits ahead of the buyer.'], ['Q-09', 'Lease consent on a sale', 'Without landlord consent the sites may not transfer.']], { left: true }) +
+      '<p><a class="btn" href="#financials">See all 13 open items</a></p>';
+  };
+
+  /* ---------------- MARKET ---------------- */
+  SC.market = function () {
+    var chart = U.bars({ labels: ['2019', '2025', '2026 to Oct 30'], series: [{ name: 'Domestic box office, $B', cls: 'b-base', vals: [11.4, 8.6, 8.3], dim: [false, false, true] }], fmt: function (v) { return '$' + v.toFixed(0) + 'B'; }, vfmt: function (v) { return '$' + v.toFixed(1) + 'B'; }, w: 520, h: 230, label: 'US domestic box office' });
+    return '<div class="eyebrow">Market</div><h1>The New York metro cinema market</h1>' +
+      '<p class="lede">Box office is recovering but attendance is not back to 2019, windows are shifting, and wages and rents in the tri-state area are higher than the national picture. This is the evidence behind the model’s assumptions.</p>' +
+      '<h2>Demand</h2><div class="grid g2"><div class="chartbox">' + chart + '</div><div class="card"><h3>Reading the demand data</h3>' +
+      '<p>Domestic box office was about $8.6B in 2025, down 24% from 2019. ' + ci('S1') + ' By Oct 30, 2026 it stood near $8.3B and could approach $9B. ' + ci('S2') + '</p>' +
+      '<p>Attendance data disagree on how far below 2019 we are. S&amp;P Global counted 470.9M tickets in the first 30 weeks of 2026 against 747.3M in the same stretch of 2019, while Placer.ai’s foot-traffic data show visits down 27% from 2019 through July and up 8.1% on 2025. ' + ci('S3') + ' They measure different things, so the model does not lean on either.</p>' +
+      '<p>The average adult ticket was $13.46 through July 30 and $18.22 for premium formats. ABC\u2019s $12.60 averages all ticket types, so the gap is not like for like. ' + ci('S3') + '</p></div></div>' +
+      '<div class="callout"><b>So what for ABC</b>ABC grew attendance from 391,000 to 410,000 (+4.9%) in FY2025 while the industry is still below 2019. Q-01 asks the seller for admissions by title to confirm that this is not one strong tentpole slate.</div>' +
+      '<h2>A public circuit as a yardstick</h2><p>Public Circuit A is a listed national chain. Its U.S. segment for FY2025 is the closest published benchmark for how a scaled operator earns money. ' + ci('S4') + '</p>' +
+      tbl(['Measure', 'Public Circuit A, U.S. FY2025', 'ABC FY2025', 'Reading'], [
+        ['Average ticket', '$10.52', '$12.60', 'ABC prices higher, as expected in this region'],
+        ['Concessions per patron', '$8.30', '$9.10', 'ABC above, plausible for a boutique format'],
+        ['Film rental as % of admissions', '58.0% (derived, includes advertising)', '53.0%', 'ABC is lower. Booking terms need checking (Q-13)'],
+        ['Concession cost as % of concession sales', '18.9% (derived)', '20.0%', 'Close'],
+        ['Adjusted EBITDA margin', '18.5% (derived)', (H25.adj / H25.rev * 100).toFixed(1) + '%', 'Scale and rents explain much of the gap'],
+        ['Capex', '$161.4M', '3.5% of revenue modeled', 'Public Circuit A: about 6% of revenue (derived)']
+      ], { left: true }) +
+      '<p class="note">Derived ratios are calculated by us from reported figures. Attendance was 120.3M and revenue $2,502.2M for the segment. ' + ci('S4') + '</p>' +
+      '<h2>Distribution and film terms</h2><div class="grid g2"><div class="card"><h3>Windows</h3><p>One major studio now guarantees five weekends of theatrical exclusivity for the rest of 2026 and seven weekends from 2027, and a specialty division has used a window of about 17 days. ' + ci('S6') + ' Shorter windows move people to streaming sooner, which is a risk to the base case’s attendance growth.</p></div>' +
+      '<div class="card"><h3>Film rental</h3><p>Typical North American rental runs 50% to 60% of admissions, with tentpoles asking more, for example 65% plus a four-week minimum in a widely reported 2017 case. ' + ci('S7') + ' That source is old. The model uses 53% in the base case and tests 51% to 55%.</p></div></div>' +
+      '<h2>Costs in the three target markets</h2>' + tbl(['Item', 'Value', 'Source'], [
+        ['Minimum wage, NYC, Long Island, Westchester', '$17.00 from Jan 1, 2026', ci('S12', 'S13')],
+        ['Minimum wage, New Jersey', '$15.92 in 2026, $16.48 from Jan 1, 2027', ci('S10', 'S11')],
+        ['Westchester retail asking rent', '$42.38 per sq ft, availability 5.69%', ci('S17')],
+        ['Northern NJ retail asking rent', '$27.95 per sq ft, vacancy 3.3%', ci('S16')],
+        ['Digital projector', '$65,000 to $110,000 each', ci('S14')],
+        ['Auditorium sound, screen', '$30,000 to $145,000 and $12,000 to $100,000', ci('S14')]
+      ], { left: true }) +
+      '<h2>Closures and consolidation</h2><div class="card"><p>Public Circuit B operates about 850 locations, closed 213 over five years, saw Q4 2025 attendance fall nearly 10% and had about 85 leases coming up in 2026. ' + ci('S8') + ' In New Jersey, closures included theaters in Ridgewood, Millburn and Maplewood, while others kept going. ' + ci('S9') + ' Loyalty programs reached 136 million members and a third of moviegoers go often. ' + ci('S15') + '</p></div>' +
+      '<h2>What private sales have traded at</h2>' + tbl(['Yardstick', 'Range', 'How the model uses it'], [
+        ['Adjusted EBITDA multiple, small theaters', '3x to 6x ' + ci('S18'), 'Base 5.0x on FY2026E, tested 4x to 6x'],
+        ['Price per screen', '$200,000 to $500,000 ' + ci('S18'), 'Base $330,000, tested $250,000 to $400,000'],
+        ['Revenue multiple', '0.3x to 0.6x ' + ci('S18'), 'Cross-check only'],
+        ['Private deals 2012 to 2016 (median MVIC/EBITDA)', '9.3x, range 7.4x to 11.3x ' + ci('S19'), 'Dated and larger deals. Not used'],
+        ['Public Circuit A EV/EBITDA', 'about 10.5x ' + ci('S5'), 'Scale, liquidity and balance sheet differ. Not used']
+      ], { left: true }) +
+      '<div class="callout warn"><b>These are rules of thumb</b>They come from broker guides and a valuation firm, not from closed transactions in this region. They set the width of the range. They are not evidence of what this deal should cost.</div>';
+  };
+
+  /* ---------------- MAP ---------------- */
+  var PEERS = [
+    ['Peer 1', 'wc', 14, 'Dine-in premium multiplex', 'Reserved seating and full kitchen'],
+    ['Peer 2', 'wc', 8, 'Independent multiplex', 'Older fit-out'],
+    ['Peer 3', 'wc', 5, 'Arthouse', 'Specialty and festival titles'],
+    ['Peer 4', 'nj', 12, 'Family-owned multiplex', 'Strong family and kids programming'],
+    ['Peer 5', 'nj', 10, 'Dine-in', 'Recent renovation'],
+    ['Peer 6', 'nj', 6, 'Nonprofit arthouse', 'Subscription and donations'],
+    ['Peer 7', 'cj', 16, 'Regional chain site', 'Part of a larger circuit'],
+    ['Peer 8', 'cj', 8, 'Independent multiplex', 'Similar format to ABC Site 3'],
+    ['Peer 9', 'nyc', 9, 'Boutique', 'Nearest city option, outside target markets']
+  ];
+  var REG = {
+    nj: { name: 'Northern NJ', x: 40, y: 60, w: 210, h: 130, abc: 'S1', wage: '$15.92 in 2026, $16.48 from Jan 1, 2027', rent: '$27.95 per sq ft asking, vacancy 3.3%', rc: 'S16, S10' },
+    wc: { name: 'Westchester', x: 290, y: 20, w: 200, h: 110, abc: 'S2', wage: '$17.00 in 2026', rent: '$42.38 per sq ft asking, availability 5.69%', rc: 'S17, S12' },
+    nyc: { name: 'New York City', x: 270, y: 150, w: 130, h: 100, abc: null, wage: '$17.00 in 2026', rent: 'Not scoped', rc: 'S12' },
+    li: { name: 'Long Island', x: 420, y: 170, w: 120, h: 90, abc: null, wage: '$17.00 in 2026', rent: 'Not scoped', rc: 'S12' },
+    cj: { name: 'Central NJ', x: 60, y: 240, w: 220, h: 120, abc: 'S3', wage: '$15.92 in 2026, $16.48 from Jan 1, 2027', rent: 'Not found in scoped search', rc: 'S10' }
+  };
+  window.PEERS = PEERS; window.REG = REG;
+  SC.map = function () {
+    var g = '<svg viewBox="0 0 560 390" role="img" aria-label="Schematic map of the five regions with ABC sites and peers">';
+    Object.keys(REG).forEach(function (k) {
+      var r = REG[k];
+      g += '<rect class="rg" data-reg="' + k + '" x="' + r.x + '" y="' + r.y + '" width="' + r.w + '" height="' + r.h + '" rx="14" tabindex="0" role="button" aria-label="' + r.name + '"/>';
+      g += '<text class="rgt" x="' + (r.x + 12) + '" y="' + (r.y + 22) + '">' + r.name + '</text>';
+      var ps = PEERS.filter(function (p) { return p[1] === k; });
+      ps.forEach(function (p, i) { g += '<circle class="dot-peer" cx="' + (r.x + 22 + i * 26) + '" cy="' + (r.y + r.h - 24) + '" r="8"/><text class="rgs" x="' + (r.x + 22 + i * 26) + '" y="' + (r.y + r.h - 6) + '" text-anchor="middle">' + p[0].replace('Peer ', 'P') + '</text>'; });
+      if (r.abc) g += '<rect class="dot-abc" x="' + (r.x + r.w - 40) + '" y="' + (r.y + 12) + '" width="26" height="26" rx="5"/><text class="rgs" x="' + (r.x + r.w - 27) + '" y="' + (r.y + 55) + '" text-anchor="middle" style="fill:var(--offer)">' + r.abc + '</text>';
+    });
+    g += '</svg>';
+    return '<div class="eyebrow">Competitor map</div><h1>Who ABC competes with</h1>' +
+      '<p class="lede">A schematic, not a geographic map. Click a region to see ABC’s site there, the nine fictional peers nearby, and local wage and rent facts.</p>' +
+      '<div class="map"><div class="card">' + g + '<p class="note"><span style="color:var(--offer)">&#9632;</span> ABC site &nbsp; <span style="color:var(--base)">&#9679;</span> peer &nbsp; Public Circuit B has been closing New Jersey locations ' + ci('S8') + '. Whether either public circuit runs a site near ABC is ' + st('requires_verification') + '.</p></div>' +
+      '<div class="card" id="regpanel"></div></div>' +
+      '<h2>All peers</h2>' + tbl(['Peer', 'Region', 'Screens', 'Format', 'Note', 'Label'], PEERS.map(function (p) { return [p[0], REG[p[1]].name, String(p[2]), p[3], p[4], st('fictional_scenario')]; }), { left: true }) +
+      '<div class="callout warn"><b>Overlap is an assumption</b>How many ABC patrons live within a short drive of a peer has not been measured. A drive-time study with ZIP-level attendance would replace this picture. ' + st('illustrative_assumption') + '</div>';
+  };
+  window.regPanel = function (k) {
+    var r = REG[k], sites = IM.SITES.filter(function (s) { return s.id === r.abc; })[0];
+    var peers = PEERS.filter(function (p) { return p[1] === k; });
+    var h = '<h3>' + r.name + '</h3>';
+    h += sites ? '<p><b>ABC ' + sites.id + '</b>: ' + sites.screens + ' screens, landlord ' + sites.landlord + ', lease expiry ' + sites.expiry + '.</p>' : '<p>No ABC site here.</p>';
+    h += '<p class="small"><b>Wage floor:</b> ' + r.wage + ' ' + ci.apply(null, r.rc.split(', ')) + '<br><b>Retail rent:</b> ' + r.rent + '</p>';
+    var tot = peers.reduce(function (a, p) { return a + p[2]; }, 0);
+    h += peers.length ? '<p class="small"><b>' + peers.length + ' peers, ' + tot + ' screens</b></p>' + tbl(['Peer', 'Screens', 'Format'], peers.map(function (p) { return [p[0], String(p[2]), p[3]]; }), { left: true }) : '<p class="muted small">No peers in scope.</p>';
+    return h;
+  };
+})();
+(function () {
+  'use strict';
+  var IM = window.IM, U = window.UI, S = IM.SAVED, $f = U.$f, nf = U.nf, P = U.P, st = U.stub, ci = U.cite, tbl = U.tbl, SC = window.SCREENS;
+  var H = IM.YEARS.map(IM.hist), H25 = H[3];
+  function pct(a, b) { return (a / b * 100).toFixed(1) + '%'; }
+  function grow(a, b) { return U.sg(a / b - 1); }
+  var QS = [
+    ['Q-01', 'HIGH', 'Attendance outperforms the market', 'ABC grew attendance 4.9% in FY2025 and the FY2026 flash shows +4.5%, while industry attendance is still below 2019. Ask for admissions by title, by week and by site, plus the booking calendar.', 'Base case assumes +2.0% a year from here; flat growth lowers the price (see Q&A)', 'management_provided_unreconciled'],
+    ['Q-02', 'HIGH', 'Related-party rent at Site 1', 'XYZ Realty charges $380,000 against a market estimate of $560,000. The model uses market rent, a $180,000 reduction in earnings. Ask for the lease, any side agreements, and an independent rent opinion.', '$180,000 a year, already adjusted', 'requires_verification'],
+    ['Q-03', 'HIGH', 'Film rent payable stretched', 'Payables to distributors rose from $290,000 to $410,000. Ask for an aging by distributor and any payment plans. The $120,000 increase is deducted from price until explained.', '$120,000, deducted', 'management_provided_unreconciled'],
+    ['Q-04', 'HIGH', 'Eleven projectors near end of life', 'Lamp-based units need replacing. At $90,000 each the bill is $990,000. Ask for install dates, service records and vendor quotes.', '$990,000 total, 50% deducted by default', 'illustrative_assumption'],
+    ['Q-05', 'MED', 'One-time insurance proceeds', 'Other revenue in FY2025 includes $120,000 of insurance proceeds. They are removed from adjusted EBITDA. Ask what the claim was for and whether more is coming.', '$120,000, already adjusted', 'management_provided_unreconciled'],
+    ['Q-06', 'MED', 'Owner pay above market', 'The owner draws about $90,000 a year more than a hired general manager would cost. The model adds that excess back, which raises adjusted EBITDA.', '$90,000 a year, already adjusted', 'illustrative_assumption'],
+    ['Q-07', 'MED', 'Owner loans', 'The business owes the owner $210,000 at 8%. It is counted as debt. Ask for the loan agreements and whether the owner will forgive or repay it at closing.', '$210,000, in net debt', 'management_provided_unreconciled'],
+    ['Q-08', 'MED', 'Gift cards and memberships', 'Unredeemed gift cards and memberships stand at $335,000. They are cash already received for service the buyer will have to deliver. Not deducted in the base price. A decision is needed on whether to treat part of it as debt-like.', '$335,000 gross, 0 deducted today', 'requires_verification'],
+    ['Q-09', 'HIGH', 'Lease assignment and change of control', 'Do the three leases allow assignment or a sale of the company, and does the landlord have to consent? This is a question for counsel to read the leases, not a finding.', 'Could stop the deal at one or more sites', 'requires_verification'],
+    ['Q-10', 'MED', 'Liquor licenses', 'Can the existing licenses transfer to the buyer, and on what timeline? A question for counsel and the licensing authorities in each state.', 'Concession mix if delayed', 'requires_verification'],
+    ['Q-11', 'MED', 'Payroll against minimum wage', 'New York is $17.00 and New Jersey $15.92, rising to $16.48 in 2027. Ask for the pay scale by role and any tip or overtime practices. ' + '', 'Each 1 point of extra wage inflation is about $42,000 of EBITDA in FY2027', 'management_provided_unreconciled'],
+    ['Q-12', 'HIGH', 'FY2026 is only a management flash', 'No closed FY2026 books exist. The base multiple is applied to FY2026E, so the price depends on a forecast. Ask for monthly results to date and a reconciliation to bank statements.', 'The whole base price', 'requires_verification'],
+    ['Q-13', 'HIGH', 'Film booking terms and tentpole commitments', 'ABC pays 53% of admissions as film rent, below the 58% seen at Public Circuit A. Ask for settlement sheets and any minimum-run or screen-count commitments to studios.', 'Each 1 point of film rent is about $58,000 a year of EBITDA', 'requires_verification']
+  ];
+
+  /* ---------------- FINANCIALS ---------------- */
+  SC.financials = function () {
+    var b = S.base.rows, labs = ['FY22', 'FY23', 'FY24', 'FY25', 'FY26E', 'FY27E', 'FY28E', 'FY29E'];
+    var rev = H.map(function (h) { return h.rev; }).concat(b.map(function (r) { return r.rev; }));
+    var eb = H.map(function (h) { return h.adj; }).concat(b.map(function (r) { return r.ebitda; }));
+    var dim = [false, false, false, false, true, true, true, true];
+    var c1 = U.bars({ labels: labs, series: [{ name: 'Revenue', cls: 'b-base', vals: rev, dim: dim }], fmt: function (v) { return '$' + (v / 1e6).toFixed(0) + 'M'; }, vfmt: function (v) { return (v / 1e6).toFixed(1); }, w: 640, h: 230, label: 'Revenue FY2022 to FY2029E in $ millions' });
+    var c2 = U.bars({ labels: labs, series: [{ name: 'Adjusted EBITDA', cls: 'b-bull', vals: eb, dim: dim }], fmt: function (v) { return '$' + (v / 1e6).toFixed(1) + 'M'; }, vfmt: function (v) { return (v / 1e6).toFixed(2); }, w: 640, h: 230, label: 'Adjusted EBITDA FY2022 to FY2029E in $ millions' });
+    function line(name, f, fmt, cls) { return { cls: cls || '', c: [name].concat(H.map(function (h) { return (fmt || $f)(f(h)); })) }; }
+    var hist = tbl(['', 'FY2022', 'FY2023', 'FY2024', 'FY2025'], [
+      line('Attendance', function (h) { return h.att; }, nf), line('Average ticket', function (h) { return h.tk; }, function (x) { return '$' + x.toFixed(2); }),
+      line('Concession per patron', function (h) { return h.pc; }, function (x) { return '$' + x.toFixed(2); }),
+      line('Admissions revenue', function (h) { return h.adm; }), line('Concession revenue', function (h) { return h.con; }), line('Other revenue', function (h) { return h.oth; }),
+      line('Total revenue', function (h) { return h.rev; }, null, 'tot'),
+      { cls: 'sub', c: ['Growth', '', grow(H[1].rev, H[0].rev), grow(H[2].rev, H[1].rev), grow(H[3].rev, H[2].rev)] },
+      line('Film rental', function (h) { return -h.film; }), line('Concession cost', function (h) { return -h.cogs; }), line('Operating expenses', function (h) { return -h.opex; }),
+      line('Reported EBITDA', function (h) { return h.ebitda; }, null, 'tot'),
+      { cls: 'sub', c: ['Margin'].concat(H.map(function (h) { return pct(h.ebitda, h.rev); })) },
+      line('Related-party rent to market', function (h) { return -h.gap; }), line('Owner pay above market, added back', function (h) { return h.owner; }), line('Insurance proceeds removed', function (h) { return -h.one; }),
+      line('Adjusted EBITDA', function (h) { return h.adj; }, null, 'tot'),
+      { cls: 'sub', c: ['Margin'].concat(H.map(function (h) { return pct(h.adj, h.rev); })) }
+    ]);
+    var fc = tbl(['Base case', 'FY2026E', 'FY2027E', 'FY2028E', 'FY2029E'], [
+      { cls: '', c: ['Attendance growth'].concat(b.map(function (r) { return U.sg(r.gA); })) },
+      { cls: '', c: ['Revenue'].concat(b.map(function (r) { return $f(r.rev); })) },
+      { cls: 'tot', c: ['Adjusted EBITDA'].concat(b.map(function (r) { return $f(r.ebitda); })) },
+      { cls: 'sub', c: ['Margin'].concat(b.map(function (r) { return pct(r.ebitda, r.rev); })) },
+      { cls: '', c: ['Capex (3.5% of revenue)'].concat(b.map(function (r) { return $f(-r.capex); })) },
+      { cls: '', c: ['Unlevered free cash flow'].concat(b.map(function (r) { return $f(r.fcf); })) },
+      { cls: '', c: ['Debt at year end'].concat(b.map(function (r) { return $f(r.debtEnd); })) },
+      { cls: '', c: ['Closing cash'].concat(b.map(function (r) { return $f(r.cash); })) }
+    ]);
+    var bs = IM.BS, debt = 0; IM.DEBT.forEach(function (d) { debt += d.bal; });
+    var assets = bs.cash + bs.ar + bs.inv + bs.prepaid + bs.ppe, liab = bs.ap + bs.accrued + bs.defrev + debt;
+    var bst = tbl(['Balance sheet, Dec 31, 2025', 'Amount', 'Note'], [
+      ['Cash', $f(bs.cash), ''], ['Receivables', $f(bs.ar), 'Mostly card settlements and group sales'], ['Inventory', $f(bs.inv), 'Concession stock'], ['Prepaid', $f(bs.prepaid), ''], ['Property and equipment, net', $f(bs.ppe), ''],
+      { cls: 'tot', c: ['Total assets', $f(assets), ''] },
+      ['Film rent payable and trade payables', $f(bs.ap), 'Up from ' + $f(bs.apPrior) + ' (Q-03)'], ['Accrued expenses', $f(bs.accrued), ''], ['Gift cards and memberships', $f(bs.defrev), 'Q-08'], ['Debt', $f(debt), 'See debt table'],
+      { cls: 'tot', c: ['Total liabilities', $f(liab), ''] }, { cls: 'tot', c: ['Owners’ equity (book)', $f(assets - liab), 'Not the same as value'] }
+    ], { lc: [2] });
+    var dt = tbl(['Debt', 'Balance', 'Rate', 'Annual repayment'], IM.DEBT.map(function (d) { return [d.name, $f(d.bal), (d.rate * 100).toFixed(2) + '%', d.am ? $f(d.am) : 'none']; }).concat([{ cls: 'tot', c: ['Gross debt', $f(debt), '', ''] }, ['Less cash', $f(-IM.CASH0), '', ''], { cls: 'tot', c: ['Net debt ' + '', P('nd'), '', ''] }]));
+    var dl = tbl(['Debt-like item', 'Amount', 'In the base price?'], [
+      ['Bank, equipment, SBA and owner loans', $f(debt), 'Yes, as net debt after cash'],
+      ['Projector catch-up capex', $f(IM.CATCHUP), 'Half, $' + nf(S.base.catchup) + ' (slider on Dashboard)'],
+      ['Increase in film rent payable', $f(bs.ap - bs.apPrior), 'Yes, in full'],
+      ['Gift cards and memberships', $f(bs.defrev), 'No. Open decision (Q-08)'],
+      ['Insurance proceeds', $f(H25.one), 'Removed from earnings, no cash adjustment']
+    ], { lc: [2] });
+    var base = IM.COST0;
+    var cost = tbl(['FY2025 normalized cost base', 'Amount', 'Change from reported'], [
+      ['Payroll', $f(base.pay), 'Same as reported'], ['Rent', $f(base.rent), '+' + $f(H25.gap) + ' at Site 1 to market'], ['Utilities', $f(base.util), ''], ['Insurance', $f(base.ins), ''], ['Marketing', $f(base.mkt), ''], ['General and administrative', $f(base.ga), 'Reported ' + $f(IM.HIST[2025].ga) + ' less ' + $f(IM.OWNER_ADD) + ' of above-market owner pay'], ['Other operating', $f(base.oo), ''],
+      { cls: 'tot', c: ['Total', $f(base.pay + base.rent + base.util + base.ins + base.mkt + base.ga + base.oo), ''] }
+    ], { lc: [2] });
+    return '<div class="eyebrow">Financials and quality of earnings</div><h1>What the earnings really are</h1>' +
+      '<p class="lede">Revenue was ' + P('r25') + ' in FY2025 and reported EBITDA ' + P('rep25') + '. After three adjustments, adjusted EBITDA is ' + P('e25') + ', and the forecast starts from that base.</p>' +
+      '<div class="callout warn"><b>All figures are from the seller and unreconciled</b>' + st('management_provided_unreconciled') + ' Nothing here has been tied to tax returns, bank statements or the ledger.</div>' +
+      '<h2>History and adjustments</h2>' + hist +
+      '<h2>Revenue and adjusted EBITDA</h2><div class="grid g2"><div class="chartbox">' + c1 + '</div><div class="chartbox">' + c2 + '</div></div><p class="note">Lighter bars are forecast years in the base case. Forecast EBITDA is already on the normalized basis.</p>' +
+      '<h2>Base-case forecast</h2>' + fc + '<p class="note">FY2026E is a management flash cut back by us. ' + st('requires_verification') + ' Payroll grows with wage inflation of 3.5% plus 40% of attendance growth. Other costs rise 2.5% to 5%.</p>' +
+      '<h2>Cost base</h2>' + cost +
+      '<h2>Balance sheet and debt</h2><div class="grid g2"><div>' + bst + '</div><div>' + dt + dl + '</div></div>';
+  };
+
+  /* ---------------- VALUATION ---------------- */
+  function sens1() {
+    var ms = [4, 4.5, 5, 5.5, 6], cs = [0, .25, .5, .75, 1], base = IM.CASES.base;
+    return { h: ['EV/EBITDA \\ catch-up deducted'].concat(cs.map(function (c) { return (c * 100) + '%'; })), rows: ms.map(function (m) { return [m.toFixed(1) + 'x'].concat(cs.map(function (c) { var v = IM.value(base, { mult: m, catchPct: c }); return { v: v.eq, hl: m === 5 && c === .5 }; })); } ) };
+  }
+  function sens2() {
+    var as = [null, -0.01, 0, 0.01, 0.02, 0.03], fs = [.51, .52, .53, .54, .55];
+    return { h: ['Attendance growth FY27 to FY29 \\ film rent'].concat(fs.map(function (f) { return (f * 100).toFixed(0) + '%'; })), rows: as.map(function (a) { return [a === null ? 'Base path' : U.sg(a)].concat(fs.map(function (f) { var p = IM.clone(IM.CASES.base); if (a !== null) p.att = [a, a, a]; p.film = f; return { v: IM.value(p, {}).eq, hl: a === null && f === .53 }; })); }) };
+  }
+  function sens3() {
+    var rs = [.12, .13, .14, .15, .16], gs = [.005, .01, .015, .02, .025];
+    return { h: ['Discount rate \\ terminal growth'].concat(gs.map(function (g) { return (g * 100).toFixed(1) + '%'; })), rows: rs.map(function (r) { return [(r * 100).toFixed(0) + '%'].concat(gs.map(function (g) { return { v: IM.value(IM.CASES.base, { r: r, g: g }).eqDcf, hl: r === .14 && g === .015 }; })); }) };
+  }
+  function stable(s) {
+    return '<div class="tw"><table class="tbl"><thead><tr>' + s.h.map(function (x, i) { return '<th' + (i ? ' class="n"' : '') + '>' + x + '</th>'; }).join('') + '</tr></thead><tbody>' + s.rows.map(function (r) { return '<tr>' + r.map(function (c, i) { return i === 0 ? '<td><b>' + c + '</b></td>' : '<td class="n' + (c.hl ? ' hl' : '') + (c.v < 0 ? ' neg' : '') + '">' + $f(c.v) + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>';
+  }
+  window.sensHtml = { s1: sens1, s2: sens2, s3: sens3, table: stable };
+  SC.valuation = function () {
+    var R = IM.ranges(), base = S.base, v = IM.VDEF;
+    var ff = U.football(R, v.offer);
+    var br = tbl(['Method', 'Enterprise value', 'Equity value', 'Weight', 'Basis'], [
+      ['Discounted cash flow', P('dcf'), $f(base.eqDcf), (base.w[0] * 100).toFixed(0) + '%', 'Free cash flow FY2027 to FY2029, 14.0% discount rate, 1.5% terminal growth. ' + (base.tvShare * 100).toFixed(0) + '% of value is terminal'],
+      ['EV / EBITDA', P('evm'), $f(base.eqMult), (base.w[1] * 100).toFixed(0) + '%', '5.0x FY2026E adjusted EBITDA'],
+      ['Price per screen', P('scr'), $f(base.eqScr), (base.w[2] * 100).toFixed(0) + '%', '$330,000 times 18 screens'],
+      { cls: 'tot', c: ['Weighted', P('ev'), P('price'), '100%', 'Equity = EV less deductions'] }
+    ], { lc: [4] });
+    var bridge = tbl(['Bridge, base case', 'Amount'], [
+      ['Enterprise value', $f(base.ev)], ['Less net debt', $f(-base.netDebt)], ['Less 50% of projector catch-up', $f(-base.catchup)], ['Less increase in film rent payable', $f(-base.nwc)], { cls: 'tot', c: ['Equity value', $f(base.eq)] }
+    ]);
+    var t4 = tbl(['Case', 'Equity price', 'Buyer cash if debt stays', 'Buyer cash if debt is repaid at close'], ['bear', 'base', 'bull'].map(function (k) { var c = S[k]; return [k.charAt(0).toUpperCase() + k.slice(1), $f(c.eq), $f(c.eq), $f(c.eq + c.netDebt)]; }));
+    var offEV = base.offerEv, mult26 = offEV / base.ltm;
+    return '<div class="eyebrow">Valuation</div><h1>Three methods, one range</h1>' +
+      '<p class="lede">The base enterprise value is ' + P('ev') + ' and the equity value ' + P('price') + '. The multiple and per-screen figure sit inside published ranges and were not changed to meet the client’s offer.</p>' +
+      br + bridge +
+      '<div class="callout"><b>Standalone value only</b>The base case contains no buyer savings. The bull case includes savings on film booking and purchasing, so the gap between bull and base is value the buyer would create, not value the seller owns.</div>' +
+      '<h2>Football field, equity value</h2><div class="chartbox">' + ff + '</div>' +
+      '<p>' + window.offerSentence(R, v.offer) + '. The offer implies an enterprise value of about ' + $f(offEV) + ', or ' + U.mx(mult26) + ' FY2026E adjusted EBITDA, once net debt and the other deductions are added back.</p>' +
+      '<p class="note">Bars show bear to bull, the dark tick is the base case. The Adviser range applies the published 3x to 6x rule of thumb to FY2025 adjusted EBITDA and is shown for context only. ' + ci('S18') + '</p>' +
+      '<h2>Do the multiples hold up?</h2>' + tbl(['Check', 'Result', 'Reading'], [
+        ['Base EV / FY2026E adjusted EBITDA', P('m26'), 'Inside the 3x to 6x rule of thumb. ' + ci('S18')],
+        ['Base EV / FY2025 adjusted EBITDA', P('m25'), 'Just above the top of the rule of thumb. The base is not conservative'],
+        ['Base EV / FY2025 revenue', (base.ev / H25.rev).toFixed(2) + 'x', 'Just above the 0.3x to 0.6x range ' + ci('S18')],
+        ['Price per screen', '$330,000', 'Inside $200,000 to $500,000. ' + ci('S18')],
+        ['Public Circuit A trades at about 10.5x', '', 'Scale, liquidity and balance sheet differ, so it is not applied. ' + ci('S5')]
+      ], { left: true }) +
+      '<h2>Sensitivity tables</h2><h3>1. Multiple and projector catch-up</h3><p class="note">Equity value, base case. Highlighted cell is the base.</p>' + stable(sens1()) +
+      '<h3>2. Attendance growth and film rent</h3><p class="note">Equity value. The base path is +2.0%, +1.5% and +1.0%. Other rows apply one rate to each of FY2027 to FY2029.</p>' + stable(sens2()) +
+      '<h3>3. Discount rate and terminal growth</h3><p class="note">DCF-only equity value, which is one third of the price.</p>' + stable(sens3()) +
+      '<h3>4. Debt repaid at close or left in place</h3><p class="note">What the buyer must fund at closing. Repaying adds net debt of ' + $f(base.netDebt) + ' to the equity price.</p>' + t4;
+  };
+
+  /* ---------------- LEASES ---------------- */
+  SC.leases = function () {
+    var S1 = IM.SITES;
+    var rows = S1.map(function (s) { return [s.id + ' ' + s.region, String(s.screens), nf(s.sqft), s.landlord, $f(s.rentPaid), $f(s.rentMkt), '$' + (s.rentMkt / s.sqft).toFixed(2), String(s.expiry)]; });
+    var tp = 0, tm = 0; S1.forEach(function (s) { tp += s.rentPaid; tm += s.rentMkt; });
+    rows.push({ cls: 'tot', c: ['Total', '18', nf(S1.reduce(function (a, s) { return a + s.sqft; }, 0)), '', $f(tp), $f(tm), '', ''] });
+    var lt = { lc: [3] };
+    return '<div class="eyebrow">Leases</div><h1>Three sites, three landlords’ positions</h1>' +
+      '<p class="lede">Rent is a major fixed cost. Site 1 is leased from XYZ Realty, a related party, at $180,000 a year below market. A buyer will not keep that discount.</p>' +
+      tbl(['Site', 'Screens', 'Sq ft', 'Landlord', 'Rent paid', 'Market rent', 'Market $/sq ft', 'Expiry'], rows, lt) +
+      '<p class="note">' + st('management_provided_unreconciled') + ' Market rent is ' + st('illustrative_assumption') + ' For orientation, general retail asking rents are $27.95 per sq ft in Northern NJ and $42.38 in Westchester. ' + ci('S16', 'S17') + ' Cinema leases are usually cheaper than retail per foot, so these are context, not comparables.</p>' +
+      '<div class="callout warn"><b>Rent is 12.7% of revenue as paid and 14.6% at market</b>That is ' + $f(H25.gap) + ' of EBITDA the seller’s statements do not show.</div>' +
+      '<h2>What counsel needs to read</h2>' + tbl(['Question', 'Why', 'Label'], [
+        ['Can each lease be assigned, or can the company be sold, without landlord consent?', 'Consent rights can delay or block the deal (Q-09)', st('requires_verification')],
+        ['What are the renewal options and rent resets?', 'Site 3 expires in 2028 and Site 2 in 2029, inside a five-year hold', st('requires_verification')],
+        ['Does any lease carry percentage rent, co-tenancy or exclusive-use clauses?', 'These change rent when the center changes', st('requires_verification')],
+        ['Will XYZ Realty sign a new Site 1 lease on market terms, and for how long?', 'The valuation assumes market rent from day one', st('requires_verification')],
+        ['Who owns the build-out and the right to the sign?', 'Affects what the buyer is really buying', st('requires_verification')]
+      ], { left: true }) +
+      '<p class="note">These are questions for the buyer’s lawyers. This workspace does not interpret any lease.</p>';
+  };
+
+  /* ---------------- WORKFORCE ---------------- */
+  SC.workforce = function () {
+    var p = IM.clone(IM.CASES.base), p2 = IM.clone(p); p2.wage = p.wage + 0.01;
+    var a = IM.forecast(p, 3), b = IM.forecast(p2, 3);
+    var d27 = a[1].ebitda - b[1].ebitda;
+    return '<div class="eyebrow">Workforce</div><h1>People and wage exposure</h1>' +
+      '<p class="lede">About 140 people work across the three sites, equal to about 52 full-time positions, so most shifts are part-time. Payroll was ' + $f(IM.COST0.pay) + ' in FY2025.</p>' +
+      tbl(['Role group', 'Full-time equivalents', 'Note'], [['Managers', '6', 'Two to be offered retention'], ['Shift leads', '8', ''], ['Floor and concession staff', '30', 'Mostly part-time, many at the wage floor'], ['Projection and technical', '4', 'Skilled, hard to replace'], ['Administration', '4', 'Includes accounting']].concat([{ cls: 'tot', c: ['Total', '52', ''] }]), { left: true }) +
+      '<p class="note">' + st('management_provided_unreconciled') + ' Headcount by role has not been checked against payroll records (Q-11).</p>' +
+      '<h2>Wage floors</h2>' + tbl(['Site', 'Wage floor', 'Next change', 'Source'], [
+        ['S1 Northern NJ', '$15.92 in 2026', '$16.48 from Jan 1, 2027 (+3.5%)', ci('S10', 'S11')],
+        ['S2 Lower Westchester', '$17.00 in 2026', 'Not found in scoped search', ci('S12')],
+        ['S3 Central NJ', '$15.92 in 2026', '$16.48 from Jan 1, 2027 (+3.5%)', ci('S10', 'S11')]
+      ], { left: true }) +
+      '<div class="callout"><b>One point of extra wage inflation</b>Raising wage growth from 3.5% to 4.5% lowers FY2027E adjusted EBITDA by about ' + $f(d27) + ' in the base case. The model uses 3.5% in all cases. Moving it is possible on the <a href="#dashboard">Dashboard</a>.</div>' +
+      '<h2>Deal terms for people</h2><div class="grid g2"><div class="card"><h3>Owner</h3><p>Stays 12 months after closing to hand over distributor and landlord relationships. Pay at market is already in the numbers.</p></div><div class="card"><h3>Managers</h3><p>Two managers get retention payments. The cost is not in the price yet. ' + st('illustrative_assumption') + '</p></div></div>';
+  };
+
+  /* ---------------- QUESTIONS ---------------- */
+  SC.questions = function () {
+    return '<div class="eyebrow">Open questions</div><h1>Thirteen things still to prove</h1>' +
+      '<p class="lede">Seven are high priority. Dollar effects are our estimates.</p>' +
+      '<div class="tw"><table class="tbl"><thead><tr><th>ID</th><th>Priority</th><th>Item</th><th>What to ask for</th><th>Money at stake</th><th>Label</th></tr></thead><tbody>' +
+      QS.map(function (q) { return '<tr><td class="mono">' + q[0] + '</td><td><span class="pill p-' + q[1].toLowerCase() + '">' + q[1] + '</span></td><td><b>' + q[2] + '</b></td><td style="min-width:260px">' + q[3] + '</td><td>' + q[4] + '</td><td>' + st(q[5]) + '</td></tr>'; }).join('') + '</tbody></table></div>';
+  };
+  window.QS = QS;
+  /* ---------------- GATES ---------------- */
+  var GATES = window.GATES = [
+    ['G1', 'Data and privacy', ['Mutual NDA signed', 'Seller data room opened with named access list', 'No personal data of staff or patrons in working files']],
+    ['G2', 'Historical inputs', ['FY2022 to FY2025 revenue tied to tax returns', 'Bank statements agree to reported cash', 'Admissions by title received (Q-01)']],
+    ['G3', 'Adjustments and valuation', ['Rent opinion on Site 1 (Q-02)', 'Film payable aging reviewed (Q-03)', 'Projector survey and quotes (Q-04)', 'Decision on gift-card liability (Q-08)', 'FY2026 monthly results reconcile (Q-12)']],
+    ['G4', 'Release to investment committee', ['Counsel has read leases and licenses (Q-09, Q-10)', 'All HIGH items closed or priced', 'Memo reviewed by a second analyst']]
+  ];
+  SC.gates = function () {
+    return '<div class="eyebrow">Gates</div><h1>Four sign-offs before anything leaves the team</h1>' +
+      '<p class="lede">Tick items as they are completed. Ticks are kept only in this browser and are not shared.</p>' +
+      '<div id="gatewrap">' + GATES.map(function (g) { return '<div class="card gate" data-g="' + g[0] + '"><h3>' + g[0] + ' &middot; ' + g[1] + ' <span class="tag" data-gs></span></h3>' + g[2].map(function (t, i) { return '<label><input type="checkbox" data-gi="' + g[0] + '-' + i + '"> ' + t + '</label>'; }).join('') + '</div>'; }).join('') + '</div>';
+  };
+
+  /* ---------------- Q&A ---------------- */
+  function tornado() {
+    var base = IM.value(IM.CASES.base, {}).eq, out = [];
+    function t(name, lo, hi, lov, hiv) { out.push({ n: name, lo: lo, hi: hi, lov: lov, hiv: hiv, sw: Math.abs(hi - lo) }); }
+    function pv(mut) { var p = IM.clone(IM.CASES.base); mut(p); return IM.value(p, {}).eq; }
+    t('EV/EBITDA 4.0x to 6.0x', IM.value(IM.CASES.base, { mult: 4 }).eq, IM.value(IM.CASES.base, { mult: 6 }).eq, '4.0x', '6.0x');
+    t('Catch-up deducted 100% to 0%', IM.value(IM.CASES.base, { catchPct: 1 }).eq, IM.value(IM.CASES.base, { catchPct: 0 }).eq, '100%', '0%');
+    t('Film rent 55% to 51%', pv(function (p) { p.film = .55; }), pv(function (p) { p.film = .51; }), '55%', '51%');
+    t('Attendance growth 0% to 3%', pv(function (p) { p.att = [0, 0, 0]; }), pv(function (p) { p.att = [.03, .03, .03]; }), '0%', '3%');
+    t('Discount rate 16% to 12%', IM.value(IM.CASES.base, { r: .16 }).eq, IM.value(IM.CASES.base, { r: .12 }).eq, '16%', '12%');
+    t('Price per screen $250K to $400K', IM.value(IM.CASES.base, { perScreen: 250000 }).eq, IM.value(IM.CASES.base, { perScreen: 400000 }).eq, '$250K', '$400K');
+    t('Wage inflation 4.5% to 2.5%', pv(function (p) { p.wage = .045; }), pv(function (p) { p.wage = .025; }), '4.5%', '2.5%');
+    out.sort(function (a, b) { return b.sw - a.sw; });
+    return { base: base, rows: out };
+  }
+  SC.qa = function () {
+    var R = IM.ranges(), base = S.base, T = tornado(), v = IM.VDEF;
+    function d(q, a) { return '<details><summary>' + q + '</summary>' + a + '</details>'; }
+    var tr = tbl(['Driver (low to high price)', 'Equity at low end', 'Equity at high end', 'Swing'], T.rows.map(function (r) { return [r.n, $f(r.lo), $f(r.hi), $f(r.sw)]; }));
+    return '<div class="eyebrow">Q&amp;A</div><h1>Questions a reviewer would ask</h1><p class="lede">Answers below are computed from the model, so they change if the model changes.</p>' +
+      d('What is the indicative price?', '<p>The base equity value is ' + $f(base.eq) + ', the bear case ' + $f(S.bear.eq) + ' and the bull case ' + $f(S.bull.eq) + '. It is an illustration for coursework, not an opinion of value.</p>') +
+      d('How does the client’s offer compare?', '<p>' + window.offerSentence(R, v.offer) + '. The offer is ' + offerLineQ(base.eq, v.offer) + ' the base case.</p>') +
+      d('What moves the price most?', '<p>Each driver is moved on its own from the base case of ' + $f(T.base) + '.</p>' + tr) +
+      d('Why not use the 10.5x that Public Circuit A trades at?', '<p>It is a listed national chain with scale, a liquid share price and bank access that a three-site independent lacks. The published range for small theaters is 3x to 6x. ' + ci('S5', 'S18') + '</p>') +
+      d('Why is related-party rent adjusted?', '<p>XYZ Realty charges $380,000 on Site 1 against a market estimate of $560,000. A buyer paying the seller for earnings that depend on a discount from the seller’s own affiliate would overpay by $180,000 a year of EBITDA, about ' + $f(180000 * 5) + ' at 5.0x.</p>') +
+      d('Why are film payables a price issue?', '<p>Payables to distributors rose $120,000 in a year. If ABC is paying slowly, cash looks better than it is, and the buyer will have to catch up. The full increase is deducted until an aging shows normal terms.</p>') +
+      d('Where do buyer savings go?', '<p>Only in the bull case. The standalone price excludes them so the seller is not paid for value the buyer creates.</p>') +
+      d('How reliable is FY2026?', '<p>It is a management flash with no closed books (Q-12). The EV/EBITDA method is applied to FY2026E, so about a third of the price depends on it. The DCF discounts FY2027 to FY2029 back to the start of the forecast.</p>') +
+      d('What is real and what is invented?', '<p>Invented: the target, its figures, XYZ Realty, Buyer Co., the peers and all people. Real: box office, attendance, wage rates, rents, equipment costs, rules of thumb, and the figures for Public Circuit A and B, each cited on the <a href="#sources">Sources</a> page.</p>') +
+      d('What would make us stop?', '<p>Any HIGH item that cannot be closed: landlord consent withheld (Q-09), attendance not explained by the title mix (Q-01), or a reconciliation gap in FY2026 (Q-12). See <a href="#gates">Gates</a>.</p>');
+  };
+  function offerLineQ(eq, offer) { var d = eq - offer; return d > 0 ? $f(d) + ' below' : $f(-d) + ' above'; }
+
+  /* ---------------- SOURCES ---------------- */
+  SC.sources = function () {
+    return '<div class="eyebrow">Sources</div><h1>Where the market facts come from</h1>' +
+      '<p class="lede">Every real-world figure used in the scenario, with how far to trust it. Nothing about ABC Cinemas, XYZ Realty, Buyer Co. or the peers is real.</p>' +
+      '<div class="tw"><table class="tbl"><thead><tr><th>Ref</th><th>Source</th><th>Date</th><th>Used for</th><th>Label</th></tr></thead><tbody>' + U.SRC.map(function (s) {
+        var t = s.u ? '<a href="' + U.esc(s.u) + '" target="_blank" rel="noopener">' + U.esc(s.t) + '</a>' : U.esc(s.t);
+        return '<tr id="src-' + s.id + '"><td class="mono">' + s.id + '</td><td>' + t + '<br><span class="muted small">' + U.esc(s.p) + '</span></td><td>' + U.esc(s.d) + '</td><td>' + U.esc(s.used) + '</td><td>' + st(s.l) + '</td></tr>';
+      }).join('') + '</tbody></table></div>' +
+      '<p class="note">S4 and S5 relate to a listed company and are cited by description only so the workspace stays anonymous. Derived ratios are our own calculations from reported figures.</p>';
+  };
+})();
+(function () {
+  'use strict';
+  var IM = window.IM, U = window.UI, S = IM.SAVED, $f = U.$f, P = U.P, st = U.stub, ci = U.cite, tbl = U.tbl, SC = window.SCREENS;
+  var H25 = IM.hist(2025), H24 = IM.hist(2024);
+  var mapFn = SC.map, marketFn = SC.market, leasesFn = SC.leases, qFn = SC.questions;
+  delete SC.map; delete SC.market; delete SC.leases; delete SC.questions;
+  function part(a, i) { return a[i]; }
+  var MK = marketFn().split('<h2>');
+  /* MK: 0 head, 1 Demand, 2 Public circuit, 3 Distribution, 4 Costs, 5 Closures, 6 Private sales */
+  var bs = IM.BS, debt = 0; IM.DEBT.forEach(function (d) { debt += d.bal; });
+
+  /* ---------------- FACTS ---------------- */
+  var FACTS = [
+    ['F-0101', 'FY2025 revenue of ' + $f(H25.rev) + ' (admissions, concessions and other)', 'ABC', 'management_provided_unreconciled', 'Not tied to tax returns or bank statements', '04'],
+    ['F-0102', 'FY2025 reported EBITDA of ' + $f(H25.ebitda), 'ABC', 'management_provided_unreconciled', 'Working basis set by the deal lead. Adjusted to ' + $f(H25.adj) + ' (Q-02, Q-05, Q-06)', '04'],
+    ['F-0103', 'Attendance of 410,000 in FY2025, up 4.9%, and +4.5% in the FY2026 flash', 'ABC', 'requires_verification', 'Open. Admissions by title requested (Q-01, Q-12)', '04'],
+    ['F-0104', 'Site 1 pays XYZ Realty $380,000 a year. Market estimate is $560,000', 'ABC / XYZ Realty', 'requires_verification', 'Open. Independent rent opinion needed (Q-02)', '04'],
+    ['F-0105', 'Film rent payable of $410,000 at Dec 31, 2025, up from $290,000', 'ABC', 'management_provided_unreconciled', 'Open. Aging by distributor needed (Q-03)', '04'],
+    ['F-0106', '11 of 18 screens run lamp-based projectors', 'ABC', 'company_claim', 'Unreviewed. Install dates and service records needed (Q-04)', '04'],
+    ['F-0107', 'Other revenue includes $120,000 of insurance proceeds in FY2025', 'ABC', 'management_provided_unreconciled', 'Removed from adjusted EBITDA (Q-05)', '04'],
+    ['F-0108', 'Owner draws about $90,000 a year more than a hired general manager would cost. Model adds it back', 'ABC', 'illustrative_assumption', 'Analyst assumption. Seller to confirm pay (Q-06)', '04'],
+    ['F-0109', 'Owner loans of $210,000 at 8%', 'ABC', 'management_provided_unreconciled', 'Counted as debt (Q-07)', '04'],
+    ['F-0110', 'Gift cards and memberships of $335,000 at Dec 31, 2025', 'ABC', 'management_provided_unreconciled', 'Not deducted in base price. Decision open (Q-08)', '04'],
+    ['F-0111', 'Gross debt of ' + $f(debt) + ' and cash of ' + $f(IM.CASH0) + ', so net debt of ' + $f(IM.netDebt()), 'ABC', 'management_provided_unreconciled', 'Debt balances not yet agreed to lender statements', '04'],
+    ['F-0112', 'Leases run to 2031 (Site 1), 2029 (Site 2) and 2028 (Site 3)', 'ABC', 'management_provided_unreconciled', 'Lease copies not received (Q-09)', '08'],
+    ['F-0113', 'Liquor licenses are held at the sites. Transfer terms are not stated', 'ABC', 'requires_verification', 'Question for counsel (Q-10)', '08'],
+    ['F-0114', 'About 140 people employed, equal to about 52 full-time positions', 'ABC', 'management_provided_unreconciled', 'Headcount by role not checked against payroll (Q-11)', '10'],
+    ['F-0115', 'Film rent was 53% of admissions in FY2025, below the 58.0% seen at Public Circuit A', 'ABC', 'requires_verification', 'Settlement sheets needed (Q-13)', '07'],
+    ['F-0201', 'Domestic box office was about $8.6B in 2025, down 24% from $11.4B in 2019', 'Market', 'secondary_report', 'Source S1. Not checked against the original data', '02'],
+    ['F-0202', 'Domestic box office near $8.3B through Oct 30, 2026, could approach $9B', 'Market', 'secondary_report', 'Source S2. A projection, not a result', '02'],
+    ['F-0203', '470.9M tickets in the first 30 weeks of 2026 against 747.3M in the same stretch of 2019', 'Market', 'secondary_report', 'Source S3. Placer.ai measures visits and shows -27% versus 2019', '02'],
+    ['F-0204', 'Average adult ticket $13.46 through July 30, premium formats $18.22', 'Market', 'secondary_report', 'Source S3', '02'],
+    ['F-0205', 'Public Circuit A U.S. segment FY2025: revenue $2,502.2M, attendance 120.3M, ticket $10.52, concessions $8.30 per patron', 'Public Circuit A', 'verified_public_record', 'Earnings release (S4). Ratios derived by us', '07'],
+    ['F-0206', 'Public Circuit A film rental and advertising were 58.0% of admissions and adjusted EBITDA margin was 18.5%', 'Public Circuit A', 'verified_public_record', 'Derived by us from reported figures (S4)', '07'],
+    ['F-0207', 'Public Circuit A trades at about 10.5x EV/EBITDA', 'Public Circuit A', 'secondary_report', 'Source S5. EBITDA basis not verified. Not applied', '07'],
+    ['F-0208', 'Public Circuit B has about 850 locations, closed 213 in five years and has about 85 leases up in 2026', 'Public Circuit B', 'secondary_report', 'Source S8', '02'],
+    ['F-0209', 'One major studio guarantees five weekends of exclusivity in 2026 and seven from 2027', 'Market', 'secondary_report', 'Source S6. Other studios differ', '02'],
+    ['F-0210', 'Typical film rental is 50% to 60% of admissions, with tentpoles asking more', 'Market', 'secondary_report', 'Source S7. Dated 2017', '02'],
+    ['F-0211', 'NJ minimum wage is $15.92 in 2026 and $16.48 from Jan 1, 2027', 'Market', 'verified_public_record', 'State labor department announcement (S10)', '10'],
+    ['F-0212', 'NY minimum wage is $17.00 in NYC, Long Island and Westchester in 2026', 'Market', 'secondary_report', 'Sources S12 and S13', '10'],
+    ['F-0213', 'Westchester retail asking rent $42.38 per sq ft, availability 5.69%', 'Market', 'secondary_report', 'Source S17. Retail, not cinema, rents', '08'],
+    ['F-0214', 'Northern NJ retail asking rent $27.95 per sq ft, vacancy 3.3%', 'Market', 'secondary_report', 'Source S16. Retail, not cinema, rents', '08'],
+    ['F-0215', 'Digital projector costs $65,000 to $110,000. Auditorium sound $30,000 to $145,000', 'Market', 'secondary_report', 'Source S14', '04'],
+    ['F-0216', 'Small theaters sell for 3x to 6x adjusted EBITDA and $200,000 to $500,000 per screen', 'Market', 'secondary_report', 'Source S18. Broker rules of thumb, not deals', '07'],
+    ['F-0217', 'Private theater deals 2012 to 2016 had a median MVIC/EBITDA of 9.3x', 'Market', 'secondary_report', 'Source S19. Dated and larger deals. Not used', '07'],
+    ['F-0218', 'Next change to the New York minimum wage after 2026', 'Market', 'not_found_in_scoped_search', 'Not found. Check state labor department', '10'],
+    ['F-0219', 'Cinema-specific lease rents in Central NJ', 'Market', 'not_found_in_scoped_search', 'Not found. Needs a broker opinion', '08'],
+    ['F-0220', 'Number of Public Circuit A and B sites near ABC', 'Public Circuit A / B', 'requires_verification', 'Needs a drive-time study', '09'],
+    ['F-0221', 'Nine peers, ' + window.PEERS.reduce(function (a, p) { return a + p[2]; }, 0) + ' screens, across Westchester, Northern NJ, Central NJ and New York City', 'Peers', 'fictional_scenario', 'Invented for the scenario', '07']
+  ];
+  window.FACTS = FACTS;
+  var MODS = { '02': 'Research and evidence', '04': 'Financials and QoE', '07': 'Comparables', '08': 'Legal and regulatory', '09': 'Reputation and geography', '10': 'Workforce' };
+  function factsRows() { return FACTS.map(function (f) { return '<tr data-s="' + f[3] + '" data-m="' + f[5] + '"><td class="mono">' + f[0] + '</td><td>' + U.esc(f[1]) + '</td><td>' + U.esc(f[2]) + '</td><td>' + st(f[3]) + '</td><td>' + U.esc(f[4]) + '</td></tr>'; }).join(''); }
+  function counts() { var o = {}; FACTS.forEach(function (f) { o[f[3]] = (o[f[3]] || 0) + 1; }); return o; }
+
+  /* ---------------- 02 EVIDENCE ---------------- */
+  SC.evidence = function () {
+    var c = counts(), sel = '<option value="">All statuses</option>' + Object.keys(U.LABELS).map(function (k) { return '<option value="' + k + '">' + k + ' (' + (c[k] || 0) + ')</option>'; }).join('');
+    var mods = '<option value="">All modules</option>' + Object.keys(MODS).map(function (k) { return '<option value="' + k + '">' + k + ' ' + MODS[k] + '</option>'; }).join('');
+    return '<h1>Research and evidence register</h1>' +
+      '<p class="lede">' + FACTS.length + ' facts about the business and the market, each with an evidence status. Seller facts stay unreconciled until documents arrive. Market facts point to a source.</p>' +
+      '<div class="headline"><b>Every market fact has a source. No seller fact is confirmed.</b>The register separates what the seller says from what we found in public sources. A company_claim is never shown as fact.</div>' +
+      '<div class="filters"><input id="fq" type="search" placeholder="Search claims, entities, sources" aria-label="Search the register"><select id="fs" aria-label="Evidence status">' + sel + '</select><select id="fm" aria-label="Module">' + mods + '</select></div>' +
+      '<p class="note" id="fcount"></p>' +
+      '<div class="tw"><table class="tbl" id="ftab"><thead><tr><th>ID</th><th>Claim</th><th>Entity</th><th>Status</th><th>Review</th></tr></thead><tbody>' + factsRows() + '</tbody></table></div>' +
+      '<h2>' + part(MK, 1) + '<h2>' + part(MK, 3) + '<h2>' + part(MK, 4) + '<h2>' + part(MK, 5);
+  };
+  window.bindEvidence = function () {
+    var q = document.getElementById('fq'), s = document.getElementById('fs'), m = document.getElementById('fm'), n = document.getElementById('fcount');
+    function run() {
+      var rows = document.querySelectorAll('#ftab tbody tr'), shown = 0, t = q.value.trim().toLowerCase();
+      rows.forEach(function (r) { var ok = (!s.value || r.getAttribute('data-s') === s.value) && (!m.value || r.getAttribute('data-m') === m.value) && (!t || r.textContent.toLowerCase().indexOf(t) > -1); r.classList.toggle('hid', !ok); if (ok) shown++; });
+      n.textContent = 'Showing ' + shown + ' of ' + rows.length + ' facts';
+    }
+    [q, s, m].forEach(function (e) { e.addEventListener('input', run); }); run();
+  };
+
+  /* ---------------- 03 DOCUMENTS ---------------- */
+  var REQ = [
+    ['R-01', 'Admissions by title, week and site, FY2023 to FY2026 year to date', 'Q-01', 'G2'], ['R-02', 'Site 1 lease, side letters and any rent opinion', 'Q-02', 'G3'], ['R-03', 'Film rent payable aging by distributor, with payment plans', 'Q-03', 'G3'],
+    ['R-04', 'Projector list with install dates, service records and vendor quotes', 'Q-04', 'G3'], ['R-05', 'Insurance claim file for the FY2025 proceeds', 'Q-05', 'G2'], ['R-06', 'Owner pay history and job description for a general manager', 'Q-06', 'G3'],
+    ['R-07', 'Owner loan agreements and intent at closing', 'Q-07', 'G3'], ['R-08', 'Gift card and membership liability report with breakage history', 'Q-08', 'G3'], ['R-09', 'All three leases with assignment and consent clauses', 'Q-09', 'G3'],
+    ['R-10', 'Liquor license copies and transfer rules', 'Q-10', 'G3'], ['R-11', 'Pay scale by role, tip and overtime practice', 'Q-11', 'G2'], ['R-12', 'Monthly FY2026 results and bank statements', 'Q-12', 'G2'], ['R-13', 'Film settlement sheets and any minimum-run commitments', 'Q-13', 'G3']
+  ];
+  SC.documents = function () {
+    var seller = FACTS.filter(function (f) { return f[0].indexOf('F-01') === 0; }).length, mk = FACTS.length - seller, chk = IM.runChecks(), pass = chk.filter(function (x) { return x.pass; }).length;
+    return '<h1>Document register</h1>' +
+      '<p class="lede">Everything we hold on ABC Cinemas and Buyer Co.’s interest, and what is still to be requested.</p>' +
+      '<div class="srcline">Folder: 01_Research_and_Notes · 5 seller files · as of Nov 23, 2026</div>' +
+      '<div class="headline"><b>Thin evidence base.</b>Five seller files, none audited. There are no tax returns, ledgers, bank statements, lease copies or film settlement sheets yet.</div>' +
+      '<div class="grid g4"><div class="card kpi"><div class="k">Seller documents</div><div class="v">5</div><div class="s">Teaser, financials, rent, equipment, flash</div></div><div class="card kpi"><div class="k">Seller facts</div><div class="v">' + seller + '</div><div class="s">All unreconciled</div></div><div class="card kpi"><div class="k">Facts reviewed</div><div class="v">0 / ' + seller + '</div><div class="s">Analyst review at G2</div></div><div class="card kpi"><div class="k">Documents requested</div><div class="v">13</div><div class="s">Drafted from the QoE items, not sent</div></div></div>' +
+      '<h2>Received</h2>' + tbl(['File', 'From', 'Pages', 'Content', 'Evidence status', 'Used in'], [
+        ['ABC_Teaser.pdf', 'Sell side', '3', 'Three sites, 18 screens, programming mix, growth claims', st('company_claim'), '01, 02, 09'],
+        ['ABC_Financial_Summary_FY2022-FY2025.xlsx', 'Sell side', '6 tabs', 'Income statements, attendance and pricing, Dec 2025 balance sheet, debt schedule', st('management_provided_unreconciled'), '04, 06'],
+        ['ABC_Site_Rent_Schedule.pdf', 'Sell side', '2', 'Rent by site, expiry dates, note that Site 1 is leased from XYZ Realty', st('management_provided_unreconciled'), '04, 08'],
+        ['ABC_Equipment_List.pdf', 'Sell side', '2', 'Projectors by auditorium with install year', st('company_claim'), '04, 06'],
+        ['ABC_FY2026_Flash.pdf', 'Sell side', '1', 'Nine-month management flash', st('requires_verification'), '04, 06'],
+        ['Buyer_Co_Offer_Indication (email)', 'Client', '1', 'About $2.0M for 100% of the equity, existing debt stays', st('fictional_scenario'), '01, 06']
+      ], { left: true }) +
+      '<div class="callout"><b>Fictional package</b>All seller files are invented for this scenario. In a real deal these would arrive as a blind package with names removed, and we would not try to re-identify the target.</div>' +
+      '<h2>Request list</h2>' + tbl(['ID', 'Document', 'Answers', 'Gate'], REQ.map(function (r) { return [r[0], r[1], r[2], r[3]]; }), { left: true }) +
+      '<h2>Built from the documents</h2>' + tbl(['Workpaper', 'Folder', 'Stage', 'Status'], [
+        ['MNA_Data_ProjectIntermissionFinancials_draft_v01', '02_Data_and_Models', 'Draft', seller + ' seller facts · ' + pass + ' / ' + chk.length + ' checks pass · not yet reviewed'],
+        [U.esc(IM.WB), '02_Data_and_Models', 'Draft', '3 cases · 4 sensitivity tables · football field'],
+        ['MNA_Data_ProjectIntermissionComparables_draft_v01', '02_Data_and_Models', 'Draft', '9 peers · 2 public circuits · 5 yardsticks'],
+        ['MNA_Research_MarketEvidence_draft_v01', '01_Research_and_Notes', 'Draft', mk + ' market facts · ' + U.SRC.length + ' sources']
+      ], { left: true });
+  };
+
+  /* ---------------- 05 LEADERSHIP ---------------- */
+  SC.leadership = function () {
+    return '<h1>What leaves with the owner, and who runs it after close?</h1>' +
+      '<p class="lede">In a three-site independent, film booking, landlord relationships and liquor licenses often sit with one or two people. Nothing here is assessed yet. The package only shows signals.</p>' +
+      '<div class="srcline">Source: seller package v01 (signals only) · no leadership interviews held</div>' +
+      '<div class="grid g4"><div class="card kpi"><div class="k">Owners and managers</div><div class="v">Not disclosed</div><div class="s">No org chart in the package (L-01)</div></div><div class="card kpi"><div class="k">Other ventures</div><div class="v">Signals only</div><div class="s">XYZ Realty owns Site 1 (L-03)</div></div><div class="card kpi"><div class="k">Licenses held personally</div><div class="v">Not disclosed</div><div class="s">Liquor license holder unknown (L-04)</div></div><div class="card kpi"><div class="k">Transition plan</div><div class="v">12 months</div><div class="s">Proposed owner stay (L-06). Not agreed</div></div></div>' +
+      '<h2>Signals in the package</h2>' + tbl(['Signal', 'What it may mean', 'Where', 'Evidence status'], [
+        ['Site 1 is leased from XYZ Realty, a related party', 'The owner is also the landlord. Rent was set by the owner, not the market', 'Financials · Q-02', st('management_provided_unreconciled')],
+        ['Owner loans of $210,000 to the business', 'Owner finances part of the business personally', 'Financials · Q-07', st('management_provided_unreconciled')],
+        ['Owner pay above market', 'Adjusted EBITDA depends on how much of it is added back', 'Workforce · Q-06', st('requires_verification')],
+        ['Film rent payable stretched', 'Distributor relationships may be personal, and terms may not carry over', 'Financials · Q-03', st('management_provided_unreconciled')]
+      ], { left: true }) +
+      '<p class="note">Signals come from the seller package and are unreconciled. None identifies a person.</p>' +
+      '<h2>Key-person dependency map</h2>' + tbl(['Area', 'Question', 'Status'], [
+        ['Film booking and distributor relations', 'Who negotiates terms and holds the contacts at each studio?', 'Not assessed'],
+        ['Landlord relationships', 'Who deals with XYZ Realty and the two third-party landlords?', 'Not assessed'],
+        ['Liquor licenses and permits', 'In whose name is each license held?', 'Not assessed'],
+        ['Concessions purchasing', 'Who sets supplier terms and are they tied to the owner?', 'Not assessed'],
+        ['Projection and technical', 'Who maintains the projectors and knows the equipment history?', 'Not assessed'],
+        ['Pricing and promotions', 'Who sets ticket prices, discounts and gift card terms?', 'Not assessed']
+      ], { left: true }) +
+      '<h2>Proposed deal terms for people</h2><div class="grid g2"><div class="card"><h3>Owner</h3><p>Stays 12 months after closing to hand over distributor and landlord relationships. ' + st('illustrative_assumption') + '</p></div><div class="card"><h3>Two managers</h3><p>Retention payments for two managers. The cost is not in the price yet. ' + st('illustrative_assumption') + '</p></div></div>';
+  };
+
+  /* ---------------- 07 COMPARABLES ---------------- */
+  SC.comparables = function () {
+    var peers = window.PEERS, rows = peers.map(function (p, i) { return ['CP-0' + (i + 1), p[0], window.REG[p[1]].name, String(p[2]), p[3], st('fictional_scenario')]; });
+    var scr = peers.reduce(function (a, p) { return a + p[2]; }, 0);
+    return '<h1>Cinema peers in New York, Westchester and New Jersey</h1>' +
+      '<p class="lede">Nine fictional peers for local context, a listed national circuit for scale, and published adviser ranges for price.</p>' +
+      '<div class="srcline">Sources: MNA_Data_ProjectIntermissionComparables_draft_v01 · ' + peers.length + ' peers (' + scr + ' screens) · 2 public circuits · 5 yardsticks</div>' +
+      '<div class="headline"><b>No regional deal multiple yet.</b>No sale in this region discloses a price. The ranges below are broker and adviser rules of thumb. They set the width of the range and are not deal evidence.</div>' +
+      '<div class="grid g4"><div class="card kpi"><div class="k">ABC adjusted EBITDA margin</div><div class="v">' + (H25.adj / H25.rev * 100).toFixed(1) + '%</div><div class="s">FY2025, after adjustments</div></div><div class="card kpi"><div class="k">Public Circuit A margin</div><div class="v">18.5%</div><div class="s">U.S. segment, derived ' + ci('S4') + '</div></div><div class="card kpi"><div class="k">ABC film rent</div><div class="v">53.0%</div><div class="s">Circuit A: 58.0% (Q-13)</div></div><div class="card kpi"><div class="k">Rent at market</div><div class="v">' + (1380000 / H25.rev * 100).toFixed(1) + '%</div><div class="s">Of FY2025 revenue</div></div></div>' +
+      '<h2>Closest peers, nine fictional</h2>' + tbl(['ID', 'Peer', 'Region', 'Screens', 'Format', 'Label'], rows, { left: true }) +
+      '<p class="note">How many ABC patrons live near each peer has not been measured. <a href="#geography">See the map</a>.</p>' +
+      '<h2>' + part(MK, 2) + '<h2>' + part(MK, 6);
+  };
+
+  /* ---------------- 08 LEGAL ---------------- */
+  SC.legal = function () {
+    return '<h1>Legal and regulatory review</h1>' +
+      '<p class="lede">These are questions for the buyer’s lawyers. This workspace does not read leases or interpret any law.</p>' +
+      '<div class="srcline">Sources: seller rent schedule · seller financials · counsel review not started</div>' +
+      '<div class="headline"><b>Counsel review has not started.</b>Lease consent and liquor license transfer could stop the deal at one or more sites, so they go first.</div>' +
+      '<h2>Leases</h2>' + (function () { var h = leasesFn(); var a = h.indexOf('<div class="tw">'); return h.slice(a); })() +
+      '<h2>Licenses and permits</h2>' + tbl(['Item', 'What we know', 'Source', 'Evidence status'], [
+        ['Liquor licenses', 'Held at the sites. Holder name and transfer terms not stated (Q-10)', 'Seller teaser', st('requires_verification')],
+        ['Certificates of occupancy and fire inspections', 'Not provided', 'None yet', st('not_found_in_scoped_search')],
+        ['Film distributor agreements', 'Terms and minimum-run commitments not provided (Q-13)', 'None yet', st('requires_verification')],
+        ['Gift card and membership terms', 'Liability of $335,000. Terms and any required treatment not reviewed (Q-08)', 'Seller balance sheet', st('requires_verification')]
+      ], { left: true }) +
+      '<h2>Transaction and data handling</h2>' + tbl(['Question', 'Applies when', 'Status'], [
+        ['Does the deal size need any merger filing?', 'Counsel to check against current thresholds', 'Not started'],
+        ['Is patron personal data in the loyalty or gift card systems?', 'The seller shares it for diligence', 'Not triggered. Current files hold none'],
+        ['Is employee personal data shared before closing?', 'Payroll detail is requested (R-11)', 'Triggers later'],
+        ['Who may approve a change of control at each landlord?', 'Closing', 'Open (Q-09)']
+      ], { left: true });
+  };
+
+  /* ---------------- 09 GEOGRAPHY ---------------- */
+  SC.geography = function () {
+    var h = mapFn();
+    var a = h.indexOf('<div class="map">'), b = h.indexOf('<h2>All peers</h2>');
+    var mapBody = h.slice(a, b);
+    return '<h1>Footprint, competitors and fit with Buyer Co.</h1>' +
+      '<p class="lede">A schematic, not a geographic map. Click a region to see ABC’s site there, the fictional peers nearby, and local wage and rent facts.</p>' +
+      '<div class="srcline">Sources: seller teaser · Buyer Co. profile · comparables v01 · reputation searches not started</div>' +
+      '<div class="headline"><b>Reputation cannot be tested yet.</b>Reviews, press and complaint searches wait for the NDA. Until then this screen shows ABC’s claimed footprint and the market around it.</div>' +
+      mapBody +
+      '<h2>Footprint as claimed by the seller</h2>' + tbl(['Item', 'Claim', 'Source', 'Evidence status'], [
+        ['Sites and screens', 'Three sites, 18 screens: Northern NJ (8), lower Westchester (6), Central NJ (4)', 'Teaser', st('company_claim')],
+        ['Site 1 building', 'Owned by XYZ Realty, a related party of the owner', 'Rent schedule', st('management_provided_unreconciled')],
+        ['Programming', 'First-run films with some specialty titles', 'Teaser', st('company_claim')],
+        ['Average ticket', '$12.60 in FY2025', 'Financial summary', st('management_provided_unreconciled')],
+        ['Competition', 'Seller names no competitors. Site counts for Public Circuits A and B near ABC are unknown', 'None', st('requires_verification')]
+      ], { left: true }) +
+      '<h2>Fit with Buyer Co.</h2>' + tbl(['Area', 'Buyer Co.', 'ABC', 'Read'], [
+        ['Footprint', '22 screens on Long Island and in Connecticut', '18 screens in NJ and Westchester', 'No overlap in trade areas, so no closures expected'],
+        ['Where savings could come from', 'Film booking and purchasing at larger scale', 'Pays 53% film rent, buys concessions alone', 'Savings live in the bull case only'],
+        ['Equipment', 'Laser projection in most rooms', '11 of 18 screens lamp-based', 'Buyer standard would raise the catch-up bill']
+      ], { left: true }) +
+      '<p class="note">Buyer Co. facts are invented for the scenario. ' + st('fictional_scenario') + '</p>';
+  };
+
+  /* ---------------- 11 GATES ---------------- */
+  var APPR = [
+    ['Review the 19 market sources and the evidence register', 'G2', 'Research analyst', 'Deal lead', 'Ready for review'],
+    ['Raise the 13 QoE questions and send the document request list', 'G2', 'Deal lead', 'Buyer Co. sponsor', 'Drafted, not sent'],
+    ['Rent opinion for Site 1 (Q-02)', 'G3', 'Finance model', 'Deal lead', 'Awaiting seller'],
+    ['Projector survey and catch-up quotes (Q-04)', 'G3', 'Operations adviser', 'Deal lead', 'Awaiting seller'],
+    ['Treatment of the $335,000 gift card liability (Q-08)', 'G3', 'Finance model', 'Deal lead and counsel', 'Decision needed'],
+    ['Lease and license review (Q-09, Q-10)', 'G3', 'Counsel', 'Deal lead', 'Not started'],
+    ['Data-handling rule for any personal data', 'G1', 'Deal lead', 'Counsel', 'Draft']
+  ];
+  var GST = { G1: 'Open', G2: 'Pending', G3: 'Not started', G4: 'Locked' };
+  SC.gates = function () {
+    var G = window.GATES;
+    return '<h1>Gates and approvals</h1>' +
+      '<div class="srcline">Maker is not checker. Whoever submits an item cannot approve it.</div>' +
+      '<div class="headline crit"><b>Release to the investment committee is blocked.</b>G1 is open, the valuation inputs are unreconciled and 13 QoE questions remain open.</div>' +
+      '<p class="note">Tick items as they are done. Ticks are kept only in this browser and are not shared.</p>' +
+      '<div class="grid g2" id="gatewrap">' + G.map(function (g) { return '<div class="card gate" data-g="' + g[0] + '" data-st="' + GST[g[0]] + '"><h3>' + g[0] + ' · ' + g[1] + ' <span class="pill" data-gp></span></h3>' + g[2].map(function (t, i) { return '<label><input type="checkbox" data-gi="' + g[0] + '-' + i + '"> ' + t + '</label>'; }).join('') + '<div class="tag" data-gs></div></div>'; }).join('') + '</div>' +
+      '<h2>Approval queue</h2>' + tbl(['Item', 'Gate', 'Submitted by', 'Required approver', 'Status'], APPR, { left: true });
+  };
+
+  /* ---------------- 12 REPORTS ---------------- */
+  SC.reports = function () {
+    var sec = [
+      ['Executive summary and recommendation', 'All sections below', 'G4', 'Blocked'], ['Business and market', 'Teaser, evidence register, market sources', 'G2', 'Partial'], ['Fit with Buyer Co.', 'Buyer Co. profile, footprint table', 'G2', 'Partial'],
+      ['Historical financials', 'Seller summary FY2022 to FY2025', 'G2', 'Partial'], ['Quality of earnings', '13 open questions, seller answers needed', 'G3', 'Blocked'], ['Valuation', 'Three-method model runs. Inputs are unreconciled', 'G3', 'Partial'],
+      ['Comparables', '9 peers, 2 public circuits, 5 yardsticks. Context only', 'G2', 'Partial'], ['Legal and regulatory', 'Counsel has not read leases or licenses', 'G3', 'Blocked'], ['Workforce', 'Headcount and pay scale unverified', 'G2', 'Partial'], ['Risks and mitigants', 'QoE, debt, lease consent', 'G3', 'Partial']
+    ];
+    return '<h1>Reports and investment committee memo</h1>' +
+      '<div class="srcline">Release gated at G4 · for Buyer Co.</div>' +
+      '<div class="actions"><a class="btn pri" href="#dashboard">Export workpapers (Dashboard)</a><button class="btn" disabled title="Available after G4">Generate IC memo (after G4)</button></div>' +
+      '<div class="headline"><b>The IC memo cannot be written yet.</b>Valuation has run on unreconciled inputs and 13 QoE questions are open. Sections fill as gates close.</div>' +
+      '<h2>IC memo readiness</h2><div class="tw"><table class="tbl"><thead><tr><th>Section</th><th>Inputs</th><th>Gate</th><th>Status</th></tr></thead><tbody>' + sec.map(function (r) { return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td><span class="pill p-' + r[3].toLowerCase() + '">' + r[3] + '</span></td></tr>'; }).join('') + '</tbody></table></div>' +
+      '<h2>Release rules</h2><div class="card"><p>Every figure in the memo links to its provenance and source. Claims keep their evidence status, and a company_claim is never shown as fact.</p><p>No deal multiple is invented. The 3x to 6x range is a published rule of thumb and is labeled that way.</p><p>Buyer savings stay out of the standalone price and appear only in the bull case.</p><p>The Dashboard exports the current scenario to Excel as values only.</p></div>';
+  };
+})();
+(function () {
+  'use strict';
+  var IM = window.IM, U = window.UI, SC = window.SCREENS, $f = U.$f;
+  var NAV = [['how', '00', 'How it works'], ['overview', '01', 'Deal overview'], ['evidence', '02', 'Research and evidence'], ['documents', '03', 'Documents'], ['financials', '04', 'Financials and QoE'], ['leadership', '05', 'Leadership and key people'], ['valuation', '06', 'Valuation and model'], ['comparables', '07', 'Comparables'], ['legal', '08', 'Legal and regulatory'], ['geography', '09', 'Reputation and geography'], ['workforce', '10', 'Workforce'], ['gates', '11', 'Gates and approvals'], ['reports', '12', 'Reports and IC memo'], ['dashboard', '13', 'Adjustable dashboard'], ['--'], ['qa', '', 'Q&A'], ['sources', '', 'Sources']];
+  var META = { how: ['How it works', 'Sources: this workspace \u00b7 evidence labels', []], overview: ['Deal overview', 'Sources: ' + IM.WB + ' \u00b7 seller package v01 \u00b7 market evidence v01', [['Open the valuation', '#valuation'], ['Adjust the dashboard', '#dashboard']]], evidence: ['Research and evidence', 'Sources: seller package v01 \u00b7 19 market sources \u00b7 evidence register', []], documents: ['Documents', '', []], financials: ['Financials and QoE', 'Source: seller financial summary FY2022 to FY2025 \u00b7 unreconciled \u00b7 13 open QoE items below', [['Open the dashboard', '#dashboard']]], leadership: ['Leadership and key people', '', []], valuation: ['Valuation and model', 'Sources: ' + IM.WB + ' \u00b7 rules of thumb S18 \u00b7 comparables v01', [['Adjust the dashboard', '#dashboard'], ['See the comparables', '#comparables']]], comparables: ['Comparables', '', []], legal: ['Legal and regulatory', '', []], geography: ['Reputation and geography', '', []], workforce: ['Workforce', 'Sources: seller payroll summary \u00b7 wage announcements S10 to S13', []], gates: ['Gates and approvals', '', []], reports: ['Reports and IC memo', '', []], dashboard: ['Adjustable dashboard', 'Runs the same model as Valuation \u00b7 nothing is saved', [['Back to valuation', '#valuation']]], qa: ['Q&A', 'Answers are computed from the model', []], sources: ['Sources', '', []] };
+  var main = document.getElementById('main'), nav = document.getElementById('nav'), pop = document.getElementById('pop');
+  var ST = { p: IM.clone(IM.CASES.base), v: IM.clone(IM.VDEF), n: 3, preset: 'base' };
+  var dl = null, dlTried = false;
+
+  /* ---------- dashboard ---------- */
+  var pc1 = function (x) { return (x * 100).toFixed(1) + '%'; }, pc2 = function (x) { return (x * 100).toFixed(2) + '%'; };
+  var SL = [
+    ['Demand', [
+      ['att0', 'Attendance growth FY2027', -0.05, 0.08, 0.005, function (s) { return s.p.att[0]; }, function (s, x) { s.p.att[0] = x; }, U.sg],
+      ['att1', 'Attendance growth FY2028', -0.05, 0.08, 0.005, function (s) { return s.p.att[1]; }, function (s, x) { s.p.att[1] = x; }, U.sg],
+      ['att2', 'Attendance growth FY2029 and later', -0.05, 0.08, 0.005, function (s) { return s.p.att[2]; }, function (s, x) { s.p.att[2] = x; }, U.sg],
+      ['tk', 'Ticket price growth', 0, 0.06, 0.005, function (s) { return s.p.tk; }, function (s, x) { s.p.tk = x; }, U.sg],
+      ['pc', 'Concession spend per patron growth', 0, 0.06, 0.005, function (s) { return s.p.pc; }, function (s, x) { s.p.pc = x; }, U.sg]]],
+    ['Costs', [
+      ['film', 'Film rent, % of admissions', 0.48, 0.60, 0.005, function (s) { return s.p.film; }, function (s, x) { s.p.film = x; }, pc1],
+      ['cg', 'Concession cost, % of concession sales', 0.17, 0.24, 0.0025, function (s) { return s.p.cg; }, function (s, x) { s.p.cg = x; }, pc2],
+      ['wage', 'Wage inflation', 0.02, 0.06, 0.005, function (s) { return s.p.wage; }, function (s, x) { s.p.wage = x; }, pc1]]],
+    ['Valuation', [
+      ['mult', 'EV / EBITDA multiple', 3, 7, 0.25, function (s) { return s.v.mult; }, function (s, x) { s.v.mult = x; }, function (x) { return x.toFixed(2) + 'x'; }],
+      ['scr', 'Price per screen', 200000, 500000, 10000, function (s) { return s.v.perScreen; }, function (s, x) { s.v.perScreen = x; }, $f],
+      ['r', 'Discount rate', 0.10, 0.18, 0.005, function (s) { return s.v.r; }, function (s, x) { s.v.r = x; }, pc1],
+      ['g', 'Terminal growth', 0, 0.03, 0.0025, function (s) { return s.v.g; }, function (s, x) { s.v.g = x; }, pc2]]],
+    ['Deductions and offer', [
+      ['cu', 'Projector catch-up deducted', 0, 1, 0.05, function (s) { return s.v.catchPct; }, function (s, x) { s.v.catchPct = x; }, function (x) { return (x * 100).toFixed(0) + '%'; }],
+      ['nwc', 'Working-capital adjustment', 0, 300000, 10000, function (s) { return s.v.nwc; }, function (s, x) { s.v.nwc = x; }, $f],
+      ['fees', 'Buyer deal fees, % of EV', 0, 0.05, 0.005, function (s) { return s.v.fees; }, function (s, x) { s.v.fees = x; }, pc1],
+      ['offer', 'Client’s offer (equity)', 1000000, 5000000, 50000, function (s) { return s.v.offer; }, function (s, x) { s.v.offer = x; }, $f]]],
+    ['Method weights', [
+      ['w0', 'DCF weight', 0, 100, 5, function (s) { return s.v.w[0] * 100; }, function (s, x) { s.v.w[0] = x / 100; }, function (x) { return x.toFixed(0); }],
+      ['w1', 'EV/EBITDA weight', 0, 100, 5, function (s) { return s.v.w[1] * 100; }, function (s, x) { s.v.w[1] = x / 100; }, function (x) { return x.toFixed(0); }],
+      ['w2', 'Per-screen weight', 0, 100, 5, function (s) { return s.v.w[2] * 100; }, function (s, x) { s.v.w[2] = x / 100; }, function (x) { return x.toFixed(0); }]]]
+  ];
+  function liveRanges(r) {
+    var v = ST.v, bear = IM.value(IM.CASES.bear, v, ST.n), bull = IM.value(IM.CASES.bull, v, ST.n), nd = r.ded, f25 = IM.hist(2025).adj;
+    function rg(n, lo, hi, b) { return { name: n, lo: Math.min(lo, hi, b === null ? lo : b), hi: Math.max(lo, hi, b === null ? hi : b), base: b }; }
+    return [rg('Indicative price', bear.eq, bull.eq, r.eq), rg('DCF', bear.eqDcf, bull.eqDcf, r.eqDcf), rg('EV / EBITDA', 4 * r.ltm - nd, 6 * r.ltm - nd, r.eqMult), rg('Per screen', 250000 * IM.NSCREENS - nd, 400000 * IM.NSCREENS - nd, r.eqScr), rg('Adviser range', 3 * f25 - nd, 6 * f25 - nd, null)];
+  }
+  function liveChecks(r, R) {
+    var c = [], near = function (a, b) { return Math.abs(a - b) < 1; }, ws = r.w[0] + r.w[1] + r.w[2];
+    function ok(t, p) { c.push([t, !!p]); }
+    ok('Method weights add to 100%', Math.abs(ws - 1) < 1e-9);
+    ok('Enterprise value equals the weighted methods', near(r.ev, r.w[0] * r.dcf + r.w[1] * r.evMult + r.w[2] * r.evScr));
+    ok('Equity plus deductions equals enterprise value', near(r.eq + r.ded, r.ev));
+    ok('Deductions equal net debt, catch-up and working capital', near(r.ded, r.netDebt + r.catchup + r.nwc));
+    ok('Every forecast year: revenue equals admissions, concessions and other', r.rows.every(function (x) { return near(x.rev, x.adm + x.con + x.oth); }));
+    ok('Every forecast year: EBITDA equals gross profit less operating expenses', r.rows.every(function (x) { return near(x.ebitda, x.gp - x.opex); }));
+    ok('Debt falls by the principal repaid each year', r.rows.every(function (x, i) { return i === 0 || near(r.rows[i - 1].debtEnd - x.debtEnd, x.prin); }));
+    ok('Base value sits inside each football-field range', R.every(function (x) { return x.base === null || (x.base >= x.lo - 1 && x.base <= x.hi + 1); }));
+    ok('Terminal growth is below the discount rate', ST.v.g < ST.v.r);
+    var m = IM.runChecks(); ok('Saved-case model checks: ' + m.filter(function (x) { return x.pass; }).length + ' of ' + m.length + ' pass', m.every(function (x) { return x.pass; }));
+    return c;
+  }
+  function renderOut() {
+    var r = IM.value(ST.p, ST.v, ST.n), R = liveRanges(r), offer = ST.v.offer;
+    var kp = function (k, v, s) { return '<div class="card kpi"><div class="k">' + k + '</div><div class="v">' + v + '</div><div class="s">' + s + '</div></div>'; };
+    var diff = r.eq - offer;
+    var h = '<div class="grid g2">' + kp('Equity value', $f(r.eq), 'Buyer cash if debt stays') + kp('Enterprise value', $f(r.ev), U.mx(r.evToLtm) + ' FY2026E, ' + U.mx(r.evToFy25) + ' FY2025') + kp('Versus client’s offer', (diff >= 0 ? '+' : '−') + $f(Math.abs(diff)).replace('$', '$'), diff >= 0 ? 'Model value is above the offer' : 'Model value is below the offer') + kp('Equity plus fees', $f(r.buyerEq), 'Equity plus ' + (ST.v.fees * 100).toFixed(1) + '% fees on EV') + '</div>';
+    h += '<h3>Method values</h3>' + U.tbl(['Method', 'Enterprise value', 'Equity value', 'Weight'], [['DCF', $f(r.dcf), $f(r.eqDcf), (r.w[0] * 100).toFixed(0) + '%'], ['EV / EBITDA', $f(r.evMult), $f(r.eqMult), (r.w[1] * 100).toFixed(0) + '%'], ['Per screen', $f(r.evScr), $f(r.eqScr), (r.w[2] * 100).toFixed(0) + '%'], { cls: 'tot', c: ['Weighted', $f(r.ev), $f(r.eq), '100%'] }]);
+    if (ST.v.w[0] + ST.v.w[1] + ST.v.w[2] === 0) h += '<p class="note">All three weights are zero, so equal weights are used.</p>';
+    h += '<p class="note">Terminal value is ' + (r.tvShare * 100).toFixed(0) + '% of the DCF. Deductions: net debt ' + $f(r.netDebt) + ', catch-up ' + $f(r.catchup) + ', working capital ' + $f(r.nwc) + '.</p>';
+    h += '<h3>Football field</h3><div class="chartbox">' + U.football(R, offer) + '</div><p>' + window.offerSentence(R, offer) + '.</p><p class="note">Bear and bull ranges use the saved case assumptions with your valuation settings.</p>';
+    h += '<h3>Forecast</h3>' + U.tbl(['', 'FY2026E'].concat(r.rows.slice(1).map(function (x) { return 'FY' + x.yr + 'E'; })), [['Revenue'].concat(r.rows.map(function (x) { return $f(x.rev); })), { cls: 'tot', c: ['Adjusted EBITDA'].concat(r.rows.map(function (x) { return $f(x.ebitda); })) }, ['Free cash flow'].concat(r.rows.map(function (x) { return $f(x.fcf); })), ['Debt at year end'].concat(r.rows.map(function (x) { return $f(x.debtEnd); }))]);
+    var cks = liveChecks(r, R), pass = cks.filter(function (x) { return x[1]; }).length;
+    h += '<h3>Live checks: ' + pass + ' of ' + cks.length + ' pass</h3><div class="card">' + cks.map(function (x) { return '<div class="chk"><span class="' + (x[1] ? 'ok' : 'bad') + '">' + (x[1] ? '✓' : '✗') + '</span><span>' + x[0] + '</span></div>'; }).join('') + '</div>';
+    document.getElementById('dout').innerHTML = h;
+    return r;
+  }
+  function syncSliders() {
+    SL.forEach(function (g) { g[1].forEach(function (s) { var i = document.getElementById('s_' + s[0]), o = document.getElementById('o_' + s[0]); if (!i) return; var val = s[5](ST); i.value = val; o.textContent = s[7](val); }); });
+    var n = document.querySelectorAll('[data-n]'); for (var i = 0; i < n.length; i++) n[i].classList.toggle('on', +n[i].getAttribute('data-n') === ST.n);
+    var pr = document.querySelectorAll('[data-pre]'); for (i = 0; i < pr.length; i++) pr[i].classList.toggle('on', pr[i].getAttribute('data-pre') === ST.preset);
+  }
+  SC.dashboard = function () {
+    var h = '<div class="eyebrow">Dashboard</div><h1>Change an assumption, see the price move</h1><p class="lede">Everything here is recalculated in your browser from the same model as the other screens. Nothing you change is saved or shared.</p><div class="dash"><div class="card ctl"><div class="row"><button class="btn" data-pre="bear">Bear</button><button class="btn on" data-pre="base">Base</button><button class="btn" data-pre="bull">Bull</button><button class="btn" id="reset">Reset all</button></div>';
+    SL.forEach(function (g) { h += '<h4>' + g[0] + '</h4>'; g[1].forEach(function (s) { h += '<div class="sl"><label for="s_' + s[0] + '">' + s[1] + '</label><output id="o_' + s[0] + '"></output><input type="range" id="s_' + s[0] + '" min="' + s[2] + '" max="' + s[3] + '" step="' + s[4] + '"></div>'; }); });
+    h += '<h4>Forecast length</h4><div class="row"><button class="btn on" data-n="3">3 years</button><button class="btn" data-n="5">5 years</button></div><p class="note">Growth for years beyond FY2029 repeats the FY2029 setting.</p><h4>Export</h4><div class="row"><button class="btn pri hide" id="xl">Download Excel (values)</button></div><p class="note" id="xlmsg">The workbook holds values only, no formulas.</p></div><div id="dout"></div></div>';
+    return h;
+  };
+  function bindDash() {
+    SL.forEach(function (g) { g[1].forEach(function (s) { var i = document.getElementById('s_' + s[0]); if (!i) return; i.addEventListener('input', function () { s[6](ST, parseFloat(i.value)); ST.preset = ''; document.getElementById('o_' + s[0]).textContent = s[7](s[5](ST)); var pr = document.querySelectorAll('[data-pre]'); for (var k = 0; k < pr.length; k++) pr[k].classList.remove('on'); renderOut(); }); }); });
+    document.querySelectorAll('[data-pre]').forEach(function (b) { b.addEventListener('click', function () { var k = b.getAttribute('data-pre'); ST.p = IM.clone(IM.CASES[k]); ST.preset = k; syncSliders(); renderOut(); }); });
+    document.querySelectorAll('[data-n]').forEach(function (b) { b.addEventListener('click', function () { ST.n = +b.getAttribute('data-n'); ST.v.years = ST.n; syncSliders(); renderOut(); }); });
+    document.getElementById('reset').addEventListener('click', function () { ST.p = IM.clone(IM.CASES.base); ST.v = IM.clone(IM.VDEF); ST.n = 3; ST.preset = 'base'; syncSliders(); renderOut(); });
+    syncSliders(); renderOut();
+    var xl = document.getElementById('xl');
+    if (typeof XLSX === 'undefined') return;
+    var plain = { save: function (o) { return new Promise(function (ok, no) { try { var bl = new Blob([o.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }), u = URL.createObjectURL(bl), a = document.createElement('a'); a.href = u; a.download = o.filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(u); }, 2000); ok(); } catch (e) { no(e); } }); } };
+    (dlTried ? Promise.resolve(dl) : (window.claude && window.claude.use ? window.claude.use('downloads') : Promise.resolve(plain)).then(function (d) { dl = d || plain; dlTried = true; return dl; }).catch(function () { dlTried = true; return plain; })).then(function (d) {
+      if (!d) return; xl.classList.remove('hide');
+      xl.addEventListener('click', function () {
+        var msg = document.getElementById('xlmsg');
+        try {
+          var sheets = IM.exportRows(ST.p, ST.v, ST.preset || 'custom'), wb = XLSX.utils.book_new();
+          Object.keys(sheets).forEach(function (k) { XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(sheets[k]), k.slice(0, 31)); });
+          var buf = XLSX.write(wb, { type: 'array', bookType: 'xlsx' });
+          d.save({ filename: 'Project_Intermission_scenario.xlsx', data: buf }).then(function () { msg.textContent = 'Saved. The workbook holds values only.'; }, function (e) { msg.textContent = e && e.code === 'declined' ? 'Download cancelled.' : 'Download is not available here.'; });
+        } catch (e) { msg.textContent = 'Could not build the workbook.'; }
+      });
+    });
+  }
+
+  /* ---------- popover ---------- */
+  function closePop() { pop.hidden = true; }
+  function openPop(btn) {
+    var k = btn.getAttribute('data-k'), p = U.PROV[k]; if (!p) return;
+    pop.innerHTML = '<button class="x" aria-label="Close" type="button">×</button><h4>' + U.esc(p.t) + '</h4><div>' + U.stub(p.l) + '</div><p><b>' + U.esc(p.v()) + '</b></p><p>' + U.esc(p.b) + '</p><div class="f">' + U.esc(p.f) + '</div><div class="ref">' + U.esc(IM.WB) + ' › ' + U.esc(p.sheet) + ' › ' + U.esc(p.cell) + '</div><p class="note">Fictional workpaper layout. The Excel export does not follow these positions.</p>';
+    pop.hidden = false;
+    var r = btn.getBoundingClientRect(), w = pop.offsetWidth, hh = pop.offsetHeight;
+    var x = Math.max(12, Math.min(window.innerWidth - w - 12, r.left)), y = r.bottom + 8;
+    if (y + hh > window.innerHeight - 12) y = Math.max(12, r.top - hh - 8);
+    pop.style.left = x + 'px'; pop.style.top = y + 'px';
+    pop.querySelector('.x').addEventListener('click', closePop);
+  }
+
+  /* ---------- gates ---------- */
+  function bindGates() {
+    var store = {}; try { store = JSON.parse(localStorage.getItem('im-gates') || '{}'); } catch (e) { store = {}; }
+    function upd() {
+      document.querySelectorAll('.gate').forEach(function (g) {
+        var bx = g.querySelectorAll('input'), n = 0; bx.forEach(function (b) { if (b.checked) n++; });
+        var all = n === bx.length, p = g.querySelector('[data-gp]'), s = all ? 'Closed' : n > 0 ? 'In progress' : g.getAttribute('data-st');
+        p.textContent = s; p.className = 'pill ' + (all ? 'p-done' : s === 'Locked' || s === 'Not started' ? 'p-locked' : 'p-open');
+        g.classList.toggle('done', all); g.querySelector('[data-gs]').textContent = n + ' of ' + bx.length + ' items done';
+      });
+    }
+    document.querySelectorAll('[data-gi]').forEach(function (b) { b.checked = !!store[b.getAttribute('data-gi')]; b.addEventListener('change', function () { store[b.getAttribute('data-gi')] = b.checked; try { localStorage.setItem('im-gates', JSON.stringify(store)); } catch (e) { } upd(); }); });
+    upd();
+  }
+
+  /* ---------- map ---------- */
+  function bindMap() {
+    var panel = document.getElementById('regpanel');
+    function sel(k) { document.querySelectorAll('.rg').forEach(function (r) { r.classList.toggle('on', r.getAttribute('data-reg') === k); }); panel.innerHTML = window.regPanel(k); }
+    document.querySelectorAll('.rg').forEach(function (r) { var k = r.getAttribute('data-reg'); r.addEventListener('click', function () { sel(k); }); r.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); sel(k); } }); });
+    sel('nj');
+  }
+
+  /* ---------- router ---------- */
+  function head(id, html) {
+    var meta = META[id] || [id, '', []];
+    html = html.replace(/<div class="eyebrow">.*?<\/div>/, '');
+    var extra = '';
+    if (meta[1] && html.indexOf('class="srcline"') < 0) extra += '<div class="srcline">' + U.esc(meta[1]) + '</div>';
+    if (meta[2].length) extra += '<div class="actions">' + meta[2].map(function (a, i) { return '<a class="btn' + (i === 0 ? ' pri' : '') + '" href="' + a[1] + '">' + a[0] + '</a>'; }).join('') + '</div>';
+    var crumb = '<div class="crumb">Project Intermission / ' + U.esc(meta[0]) + '</div>';
+    var i = html.indexOf('</p>', html.indexOf('class="lede"')), j = html.indexOf('</h1>');
+    if (html.indexOf('class="lede"') > -1) html = html.slice(0, i + 4) + extra + html.slice(i + 4); else html = html.slice(0, j + 5) + extra + html.slice(j + 5);
+    return crumb + html;
+  }
+  function route() {
+    var id = (location.hash || '').replace('#', ''); if (!SC[id]) id = 'overview';
+    closePop();
+    main.innerHTML = head(id, SC[id]());
+    nav.querySelectorAll('a').forEach(function (a) { if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    if (id === 'dashboard') bindDash(); if (id === 'gates') bindGates(); if (id === 'geography') bindMap(); if (id === 'evidence') window.bindEvidence();
+    window.scrollTo(0, 0);
+  }
+  nav.innerHTML = NAV.map(function (n) { return n[0] === '--' ? '<hr>' : '<a href="#' + n[0] + '"><i>' + n[1] + '</i>' + n[2] + '</a>'; }).join('');
+  document.addEventListener('click', function (e) {
+    var t = e.target, b = t.closest ? t.closest('.prov') : null;
+    if (b) { e.stopPropagation(); if (!pop.hidden && pop.getAttribute('data-for') === b.getAttribute('data-k')) { closePop(); return; } pop.setAttribute('data-for', b.getAttribute('data-k')); openPop(b); return; }
+    var c = t.closest ? t.closest('[data-src]') : null;
+    if (c) { e.preventDefault(); var id = c.getAttribute('data-src'); if ((location.hash || '') !== '#sources') { location.hash = 'sources'; } setTimeout(function () { var el = document.getElementById('src-' + id); if (el) { el.scrollIntoView({ block: 'center' }); el.style.outline = '2px solid var(--accent)'; setTimeout(function () { el.style.outline = ''; }, 1800); } }, 60); return; }
+    if (!pop.contains(t)) closePop();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePop(); });
+  window.addEventListener('hashchange', route);
+  window.addEventListener('scroll', function () { if (!pop.hidden) closePop(); }, { passive: true });
+  route();
+})();
+</script>
+
+</body></html>
